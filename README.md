@@ -1,3 +1,25 @@
+<div align="right">
+
+<table>
+<tr>
+
+</td>
+<td width="40%" align="center">
+  
+    
+**XEM THÊM CÁC DỰ ÁN KHÁC**
+  
+ >
+  
+[![GitHub Profile](https://img.shields.io/badge/GitHub-Profile-blue?style=for-the-badge&logo=github)](https://github.com/nguyendinhvan-dev)
+
+</td>
+</tr>
+</table>
+
+</div>
+
+
 <div align="center">
 
 # 🧠 AIFAS_SYSTEM
@@ -343,6 +365,9 @@ Nếu có câu hỏi hoặc vấn đề, vui lòng mở Issue trên GitHub.
 **⭐ Nếu bạn thích dự án này, hãy cho tôi một Star! ⭐**
 
 [![GitHub Stars](https://img.shields.io/github/stars/nguyendinhvan-dev/AIFAS_SYSTEM?style=social)](https://github.com/nguyendinhvan-dev/AIFAS_SYSTEM/stargazers)
+
+
+
 
 Made with ❤️ by Nguyễn Đình Văn
 
