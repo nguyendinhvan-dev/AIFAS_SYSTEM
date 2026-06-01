@@ -1,10 +1,85 @@
-# AIFAS_SYSTEM - AI Fear Analytics System
+<div align="center">
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![.NET](https://img.shields.io/badge/.NET-8-purple.svg)
-![SQL Server](https://img.shields.io/badge/SQL%20Server-2019%2B-red.svg)
+# 🧠 AIFAS_SYSTEM
 
-Hệ thống phân tích khảo sát lo ngại về AI (AI Fear Analytics System) - Tích hợp kho dữ liệu, OLAP/Data Mining SSAS và ứng dụng Web dự đoán mức độ lo ngại về AI.
+### AI Fear Analytics System - Hệ thống Phân tích Lo ngại về AI
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![.NET](https://img.shields.io/badge/.NET-8-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-2019%2B-red.svg)](https://www.microsoft.com/en-us/sql-server)
+[![GitHub Stars](https://img.shields.io/github/stars/nguyendinhvan-dev/AIFAS_SYSTEM?style=social)](https://github.com/nguyendinhvan-dev/AIFAS_SYSTEM/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/nguyendinhvan-dev/AIFAS_SYSTEM?style=social)](https://github.com/nguyendinhvan-dev/AIFAS_SYSTEM/network/members)
+
+**🚀 Live Demo:** [nguyendinhvan-dev.github.io/AIFAS_SYSTEM](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM)
+
+Hệ thống hoàn chỉnh tích hợp **Kho Dữ liệu**, **OLAP/Data Mining SSAS** và **Web API** để phân tích và dự đoán mức độ lo ngại về AI dựa trên dữ liệu khảo sát.
+
+</div>
+
+---
+
+## ✨ Tính năng nổi bật
+
+| 🎯 Tính năng | 📝 Mô tả |
+|------------|----------|
+| 🔍 **Pipeline Dữ Liệu** | Từ CSDL nguồn → Kho dữ liệu → CSDL khai phá → SSAS → Web API |
+| 🤖 **3 Thuật toán AI** | Decision Tree, Logistic Regression, Clustering |
+| 📊 **OLAP đa chiều** | Truy vấn nhanh với SQL Server Analysis Services |
+| 🌐 **Web API hiện đại** | ASP.NET Core 8 Minimal API |
+| 🎨 **Giao diện đẹp** | Responsive UI với dark theme |
+| 📈 **ETL tự động** | SQL Server Integration Services (SSIS) |
+
+---
+
+## 🎬 Demo
+
+Truy cập **[nguyendinhvan-dev.github.io/AIFAS_SYSTEM](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM)** để xem demo trực tiếp!
+
+**🔗 Quick Links:**
+- [Trang Chủ](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/index.html)
+- [Ứng Dụng Dự Báo](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/ungdung.html)
+- [Phân Tích Dữ Liệu](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/phantich.html)
+
+---
+
+## 🚀 Quick Start
+
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/nguyendinhvan-dev/AIFAS_SYSTEM.git
+cd AIFAS_SYSTEM
+```
+
+### 2️⃣ Cài đặt SQL Server & SSAS
+- Cài đặt **SQL Server Database Engine**
+- Cài đặt **SQL Server Analysis Services**
+- (Tùy chọn) Cài đặt **SQL Server Integration Services**
+
+### 3️⃣ Chạy Database Scripts
+```sql
+-- 1. Tạo CSDL nguồn
+-- Chạy file: AIFAS_SOURCE.sql
+
+-- 2. Tạo kho dữ liệu (Star Schema)
+-- Chạy file: AIFAS_STAR.sql
+
+-- 3. Tạo CSDL khai phá
+-- Chạy file: SQLQuery3.sql
+```
+
+### 4️⃣ Deploy SSAS Project
+- Mở `AIFAS_SSAS/AIFAS_SSAS.sln` trong Visual Studio/SSDT
+- Deploy lên instance SSAS của bạn
+
+### 5️⃣ Chạy Web API
+```bash
+cd AIFAS_WebApi
+dotnet run
+```
+
+🎉 Xong! Truy cập `http://localhost:5xxx` để sử dụng.
+
+---
 
 ## 📋 Tổng quan
 
@@ -30,13 +105,17 @@ Hệ thống sử dụng các thuật toán Data Mining (Decision Tree, Logistic
 
 ## 🛠️ Công nghệ sử dụng
 
-- **Database**: Microsoft SQL Server (Database Engine)
-- **OLAP/Data Mining**: SQL Server Analysis Services (SSAS)
-- **ETL**: SQL Server Integration Services (SSIS)
-- **Web API**: ASP.NET Core 8 (Minimal API)
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Data Mining Algorithms**: Decision Tree, Logistic Regression, Clustering
-- **Query Languages**: DMX (Data Mining Extensions), MDX (Multidimensional Expressions)
+| Category | Technology |
+|----------|-----------|
+| 💾 **Database** | Microsoft SQL Server (Database Engine) |
+| 🧠 **OLAP/Data Mining** | SQL Server Analysis Services (SSAS) |
+| 🔄 **ETL** | SQL Server Integration Services (SSIS) |
+| 🌐 **Web API** | ASP.NET Core 8 (Minimal API) |
+| 🎨 **Frontend** | HTML5, CSS3, JavaScript |
+| 🤖 **Data Mining** | Decision Tree, Logistic Regression, Clustering |
+| 📝 **Query Languages** | DMX (Data Mining Extensions), MDX (Multidimensional Expressions) |
+
+---
 
 ## 📁 Cấu trúc dự án
 
@@ -69,15 +148,15 @@ AIFAS_SYSTEM/
 └── .gitignore                # Git ignore rules
 ```
 
-## 🚀 Hướng dẫn cài đặt
+## 🚀 Hướng dẫn cài đặt chi tiết
 
-### 1. Cài đặt SQL Server và SSAS
+### 1️⃣ Cài đặt SQL Server và SSAS
 
-- Cài đặt SQL Server Database Engine
-- Cài đặt SQL Server Analysis Services
-- (Tùy chọn) Cài đặt SQL Server Integration Services cho ETL
+- Cài đặt **SQL Server Database Engine**
+- Cài đặt **SQL Server Analysis Services**
+- (Tùy chọn) Cài đặt **SQL Server Integration Services** cho ETL
 
-### 2. Tạo và nạp dữ liệu
+### 2️⃣ Tạo và nạp dữ liệu
 
 ```sql
 -- Chạy các script theo thứ tự:
@@ -86,14 +165,14 @@ AIFAS_SYSTEM/
 -- 3. SQLQuery3.sql - Tạo CSDL khai phá
 ```
 
-### 3. Deploy dự án SSAS
+### 3️⃣ Deploy dự án SSAS
 
 - Mở solution `AIFAS_SSAS/AIFAS_SSAS.sln` trong Visual Studio/SSDT
 - Deploy dự án lên instance SSAS
 - Xác nhận tên catalog (ví dụ: `AIFAS_SSAS`)
 - Kiểm tra các mining models: `DECISION_TREE`, `LOGISTIC_REGRESSION`, `CLUSTERING`
 
-### 4. Cấu hình Web API
+### 4️⃣ Cấu hình Web API
 
 - Mở file `AIFAS_WebApi/appsettings.json`
 - Cập nhật `Ssas:ConnectionString` với thông tin SSAS của bạn:
@@ -108,18 +187,18 @@ AIFAS_SYSTEM/
 
 - Hoặc sử dụng biến môi trường: `SSAS_CONNECTION_STRING`
 
-### 5. Chạy Web API
+### 5️⃣ Chạy Web API
 
 ```bash
 cd AIFAS_WebApi
 dotnet run
 ```
 
-- Mở trình duyệt tại URL hiển thị (thường `http://localhost:5xxx`)
+🎉 Mở trình duyệt tại URL hiển thị (thường `http://localhost:5xxx`)
 
 ## 📡 API Endpoints
 
-### GET /api/health
+### 🔍 GET `/api/health`
 Kiểm tra API hoạt động
 
 **Response:**
@@ -129,7 +208,7 @@ Kiểm tra API hoạt động
 }
 ```
 
-### POST /api/predict
+### 🤖 POST `/api/predict`
 Dự đoán mức độ lo ngại về AI
 
 **Request Body:**
@@ -175,61 +254,69 @@ Dự đoán mức độ lo ngại về AI
 
 ## 🎯 Các mô hình Data Mining
 
-### 1. Decision Tree (DECISION_TREE)
+### 🌳 1. Decision Tree (DECISION_TREE)
 - Dự đoán Fear Level với xác suất High/Medium/Low
 - Không sử dụng cột Overall Fear Score
+- Phù hợp cho phân loại nhanh
 
-### 2. Logistic Regression (LOGISTIC_REGRESSION)
+### 📈 2. Logistic Regression (LOGISTIC_REGRESSION)
 - Dự đoán Fear Level với xác suất High/Medium/Low
 - Sử dụng đầy đủ các feature bao gồm Overall Fear Score
+- Chính xác cao cho dữ liệu tuyến tính
 
-### 3. Clustering (CLUSTERING)
+### 🔮 3. Clustering (CLUSTERING)
 - Phân nhóm người dùng dựa trên các đặc điểm
 - Trả về Cluster ID và Probability
+- Phát hiện pattern trong dữ liệu
 
 ## 🌐 Giao diện Web
 
 Hệ thống cung cấp các trang:
 
-- **trangchu.html** - Trang chủ giới thiệu hệ thống
-- **ungdung.html** - Ứng dụng dự đoán với form nhập liệu
-- **phantich.html** - Trang phân tích kết quả
-- **baiviet-*.html** - Các bài viết về AI và lo ngại
-- **lienhe.html** - Trang liên hệ
+| Trang | Mô tả | Link |
+|-------|-------|------|
+| 🏠 **trangchu.html** | Trang chủ giới thiệu hệ thống | [Xem](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/index.html) |
+| 🤖 **ungdung.html** | Ứng dụng dự đoán với form nhập liệu | [Xem](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/ungdung.html) |
+| 📊 **phantich.html** | Trang phân tích kết quả | [Xem](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/phantich.html) |
+| 📝 **baiviet-*.html** | Các bài viết về AI và lo ngại | [Xem](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/baiviet.html) |
+| 📧 **lienhe.html** | Trang liên hệ | [Xem](https://nguyendinhvan-dev.github.io/AIFAS_SYSTEM/lienhe.html) |
 
 ## 🔧 Xử lý lỗi kết nối SSAS
 
 Nếu gặp lỗi 502 khi gọi API, kiểm tra:
 
-1. Dịch vụ SQL Server Analysis Services đang chạy
-2. Chuỗi kết nối đúng Data Source và Initial Catalog
-3. Instance SSAS đúng (ví dụ: `SERVER\\SSASMD`)
-4. Kiểm tra bằng SQL Server Management Studio (SSMS)
+| Kiểm tra | Chi tiết |
+|----------|----------|
+| ✅ **Dịch vụ SSAS** | SQL Server Analysis Services đang chạy |
+| ✅ **Chuỗi kết nối** | Đúng Data Source và Initial Catalog |
+| ✅ **Instance SSAS** | Đúng (ví dụ: `SERVER\\SSASMD`) |
+| ✅ **Kiểm tra bằng SSMS** | Sử dụng SQL Server Management Studio |
 
-Xem file `AIFAS_WebApi/SSAS_KET_NOI.txt` để biết chi tiết.
+📄 Xem file `AIFAS_WebApi/SSAS_KET_NOI.txt` để biết chi tiết.
 
 ## 📊 Schema Database
 
-### CSDL Nguồn (AIFAS_SOURCE)
+### 💾 CSDL Nguồn (AIFAS_SOURCE)
 - Bảng `AI_FEAR_SURVEY`: Chứa dữ liệu khảo sát gốc
 
-### Kho Dữ Liệu (AIFAS_STAR)
+### 🏪 Kho Dữ Liệu (AIFAS_STAR)
 - `DimPerson`: Chiều thông tin cá nhân
 - `DimContext`: Chiều bối cảnh sử dụng AI
 - `DimTime`: Chiều thời gian
 - `FactAIFear`: Bảng sự kiện chứa các chỉ số sợ hãi
 
-### CSDL Khai Phá (AIFAS_DM)
+### 🔬 CSDL Khai Phá (AIFAS_DM)
 - Bảng `DATASET`: Dữ liệu huấn luyện cho SSAS
 
 ## 🤝 Đóng góp
 
 Contributions are welcome! Vui lòng:
-1. Fork repository
-2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
+
+1. 🍴 Fork repository
+2. 🌿 Tạo branch mới (`git checkout -b feature/AmazingFeature`)
+3. 💾 Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. 📤 Push to branch (`git push origin feature/AmazingFeature`)
+5. 🔀 Mở Pull Request
 
 ## 📄 License
 
@@ -237,7 +324,7 @@ Dự án được phân phối dưới license MIT. Xem file [LICENSE](LICENSE) 
 
 ## 👨‍💻 Tác giả
 
-Nhóm 11 - Môn Chuyên Đề Cơ Sở Dữ Liệu
+**Nguyễn Đình Văn** - Môn Chuyên Đề Cơ Sở Dữ Liệu
 
 ## 📚 Tài liệu tham khảo
 
@@ -245,16 +332,18 @@ Nhóm 11 - Môn Chuyên Đề Cơ Sở Dữ Liệu
 - [Microsoft Learn - Analysis Services](https://learn.microsoft.com/en-us/analysis-services/)
 - [DMX Syntax Reference](https://learn.microsoft.com/en-us/analysis-services/data-mining/dmx/data-mining-extensions-dmx-reference)
 
-## 🌟 Tính năng nổi bật
-
-- ✅ Pipeline dữ liệu hoàn chỉnh từ nguồn đến khai phá
-- ✅ Tích hợp 3 thuật toán Data Mining khác nhau
-- ✅ Web API hiện đại với .NET 8
-- ✅ Giao diện Web responsive
-- ✅ Hỗ trợ truy vấn OLAP đa chiều
-- ✅ ETL tự động với SSIS
-- ✅ Tài liệu chi tiết và script sẵn sàng
-
 ## 📞 Liên hệ
 
 Nếu có câu hỏi hoặc vấn đề, vui lòng mở Issue trên GitHub.
+
+---
+
+<div align="center">
+
+**⭐ Nếu bạn thích dự án này, hãy cho tôi một Star! ⭐**
+
+[![GitHub Stars](https://img.shields.io/github/stars/nguyendinhvan-dev/AIFAS_SYSTEM?style=social)](https://github.com/nguyendinhvan-dev/AIFAS_SYSTEM/stargazers)
+
+Made with ❤️ by Nguyễn Đình Văn
+
+</div>
