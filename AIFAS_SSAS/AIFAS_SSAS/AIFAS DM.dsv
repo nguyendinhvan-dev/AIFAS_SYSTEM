@@ -1,0 +1,123 @@
+﻿<DataSourceView xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="f75b9911-4e28-4883-bd4d-55323059a69e" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>AIFAS DM</ID>
+  <Name>AIFAS DM</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:CurrentLayout</Name>
+      <Value>_ALL_TABLES_</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:SchemaRestriction</Name>
+      <Value></Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:RetrieveRelationships</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:Layouts</Name>
+      <Value>
+        <Layouts xmlns="">
+          <Diagram>
+            <Name>_ALL_TABLES_</Name>
+            <DiagramLayout />
+            <ShowRelationshipNames>False</ShowRelationshipNames>
+            <UseDiagramDefaultLayout>True</UseDiagramDefaultLayout>
+            <DiagramViewPortLeft>0</DiagramViewPortLeft>
+            <DiagramViewPortTop>0</DiagramViewPortTop>
+            <DiagramBoundingLeft>0</DiagramBoundingLeft>
+            <DiagramBoundingTop>0</DiagramBoundingTop>
+            <DiagramZoom>100</DiagramZoom>
+          </Diagram>
+        </Layouts>
+      </Value>
+    </Annotation>
+  </Annotations>
+  <DataSourceID>AIFAS DM</DataSourceID>
+  <Schema>
+    <xs:schema id="AIFAS_x0020_DM" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+      <xs:element name="AIFAS_x0020_DM" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:design-time-name="554270ea-4fa1-47e6-9e88-23ca8cf7b000">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dbo_DATASET" msprop:design-time-name="738fa1f3-d5bb-44ec-829b-461fe74e5980" msprop:DbTableName="DATASET" msprop:FriendlyName="DATASET" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ID" msprop:design-time-name="72526bc0-89d9-4160-8beb-fe5a37f9bda5" msprop:DbColumnName="ID" msprop:FriendlyName="ID" type="xs:double" minOccurs="0" />
+                  <xs:element name="Age" msprop:design-time-name="8182f166-4696-4220-b6c5-337c655d2323" msprop:DbColumnName="Age" msprop:FriendlyName="Age" type="xs:double" minOccurs="0" />
+                  <xs:element name="Gender" msprop:design-time-name="2600b191-0d6a-481e-aac8-f6f64c508438" msprop:DbColumnName="Gender" msprop:FriendlyName="Gender" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Education" msprop:design-time-name="c4e37dfe-579f-4a5b-ac11-d52148cf2e70" msprop:DbColumnName="Education" msprop:FriendlyName="Education" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Occupation" msprop:design-time-name="67a12a8f-4aeb-48be-adb9-a7dcb719fc0c" msprop:DbColumnName="Occupation" msprop:FriendlyName="Occupation" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="AI_Familiarity" msprop:design-time-name="da55e1c4-8308-4aa9-9b9b-ae46b95bbfa6" msprop:DbColumnName="AI_Familiarity" msprop:FriendlyName="AI_Familiarity" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Job_Loss_Fear" msprop:design-time-name="0021d2ae-8d6f-4354-bbee-7bd84aafb113" msprop:DbColumnName="Job_Loss_Fear" msprop:FriendlyName="Job_Loss_Fear" type="xs:double" minOccurs="0" />
+                  <xs:element name="Privacy_Fear" msprop:design-time-name="3bba10ee-f689-40c1-8a60-a9e7dc8b87c9" msprop:DbColumnName="Privacy_Fear" msprop:FriendlyName="Privacy_Fear" type="xs:double" minOccurs="0" />
+                  <xs:element name="Safety_Fear" msprop:design-time-name="15fd8d3f-444d-49dc-adfe-8d3afdf3b299" msprop:DbColumnName="Safety_Fear" msprop:FriendlyName="Safety_Fear" type="xs:double" minOccurs="0" />
+                  <xs:element name="Social_Impact_Fear" msprop:design-time-name="2c6e69d6-4e56-4c67-8f54-35521a1bd469" msprop:DbColumnName="Social_Impact_Fear" msprop:FriendlyName="Social_Impact_Fear" type="xs:double" minOccurs="0" />
+                  <xs:element name="Overall_Fear_Score" msprop:design-time-name="509216e2-d91d-4549-ac26-c1a0fc8ffcd4" msprop:DbColumnName="Overall_Fear_Score" msprop:FriendlyName="Overall_Fear_Score" type="xs:double" minOccurs="0" />
+                  <xs:element name="AI_Usage_Frequency" msprop:design-time-name="c9249d18-1563-4cc4-a9bf-c19efa85db37" msprop:DbColumnName="AI_Usage_Frequency" msprop:FriendlyName="AI_Usage_Frequency" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Country" msprop:design-time-name="bae9eaa0-31e9-48ec-9afe-38a90d786bb7" msprop:DbColumnName="Country" msprop:FriendlyName="Country" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Income_Level" msprop:design-time-name="f4b2a632-d8f5-483b-b999-f0d37d1a22d1" msprop:DbColumnName="Income_Level" msprop:FriendlyName="Income_Level" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="FearLevel" msprop:design-time-name="d069d14d-7a6d-4790-b425-293e8069c4d6" msprop:DbColumnName="FearLevel" msprop:FriendlyName="FearLevel" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <AIFAS_x0020_DM xmlns="" />
+  </Schema>
+</DataSourceView>

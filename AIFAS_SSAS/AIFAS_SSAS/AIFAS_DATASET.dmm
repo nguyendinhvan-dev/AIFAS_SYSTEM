@@ -1,0 +1,607 @@
+﻿<MiningStructure xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="96326764-06c2-46eb-806b-e9834c979e35" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>AIFAS_DATASET</ID>
+  <Name>AIFAS_DATASET</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:CaseTableName</Name>
+      <Value>dbo_DATASET</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-7018" scrolltop="-1197" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="18034" y="16235" backcolor="16119285" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="010000009001b0300100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge" tooltip="DATASET" left="20" top="0" logicalid="1" controlid="1" masterid="0" hint1="0" hint2="0" width="3958" height="5000" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="000e0000760f000088130000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_DATASET" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>-7018</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>-1197</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>20</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="9dd1cdce-e416-4550-a75c-e34745955ed4">
+    <DataSourceViewID>AIFAS DM</DataSourceViewID>
+  </Source>
+  <Columns>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="5cb02142-1f8a-4951-820b-84f5aa8b439e">
+      <ID>Age</ID>
+      <Name>Age</Name>
+      <Type>Double</Type>
+      <Content>Continuous</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="baa6c9e2-f532-4d42-8a96-9e517e8a33ee">
+          <DataType>Double</DataType>
+          <DataSize>-1</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="0b3fdf54-95ae-4979-9c55-d5d7d616e92b">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Age</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="92dc2910-1a55-4d87-a7a3-7b672bbf5c98">
+      <ID>AI Familiarity</ID>
+      <Name>AI Familiarity</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="ab987ad3-f455-4078-a906-6d29b658f6c5">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="9ab6f0da-5dbb-40a1-8efe-747d8e555dec">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>AI_Familiarity</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="3c23aef2-7f2d-40de-89e6-d5c85cbe3d2c">
+      <ID>AI Usage Frequency</ID>
+      <Name>AI Usage Frequency</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="f78d1a00-ece9-410e-9d8c-20105d2a0035">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="9bdad208-5a0b-4e97-8d1a-65573e61578a">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>AI_Usage_Frequency</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="869d2740-ff41-4794-ab91-3d62512d8ec1">
+      <ID>Country</ID>
+      <Name>Country</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="26868352-8add-49d0-84c6-19c14afd03d0">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="069758cf-6459-4934-93e0-70d642db774d">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Country</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="86f0452a-68bb-4a03-9fd7-ceab951fe1c1">
+      <ID>Education</ID>
+      <Name>Education</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="5d44b60a-59e5-4538-9ffe-301981ff5cd0">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="7fd4d276-eb48-49d8-a3a1-4005d1168dd9">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Education</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="bd3d6c71-062c-47a7-b022-b17063ea41b0">
+      <ID>Fear Level</ID>
+      <Name>Fear Level</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="bde98ea5-a7d3-46e1-8b70-065c82e9b268">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="f00fc5a6-41e9-432c-90f5-27cbc2ad0ec9">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>FearLevel</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="ac6d34aa-3979-4c95-a202-4d74ed94bcd6">
+      <ID>Gender</ID>
+      <Name>Gender</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="bc1542d9-6562-48d1-a51e-ab03d97fde94">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="8b70abe9-35db-4b3c-bbd3-07d12632c667">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Gender</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="e0d9e9ee-8d25-40bd-89ca-7ad5a953922a">
+      <ID>ID</ID>
+      <Name>ID</Name>
+      <IsKey>true</IsKey>
+      <Type>Double</Type>
+      <Content>Key</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="23baa4ff-e879-44ba-828d-058d3b321eb5">
+          <DataType>Double</DataType>
+          <DataSize>-1</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="bf12995a-90c8-4f34-8cd8-2b3cc665dda6">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>ID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="e12a826b-114d-43ca-83ca-8de36b2f1767">
+      <ID>Income Level</ID>
+      <Name>Income Level</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="c093dcc8-955c-4934-a899-b0075ea08e36">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="350fc555-1204-4dfe-94b4-481897e48115">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Income_Level</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="ab9f3c0c-9a16-4ce8-be87-52e42a840efb">
+      <ID>Job Loss Fear</ID>
+      <Name>Job Loss Fear</Name>
+      <Type>Double</Type>
+      <Content>Continuous</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="237a380c-8fc5-4551-8ced-a31c1fb68706">
+          <DataType>Double</DataType>
+          <DataSize>-1</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="dae6b835-49a9-4c32-9d3f-245d38a68bcb">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Job_Loss_Fear</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="641dbc25-0dc4-455e-90b9-c499928352a1">
+      <ID>Occupation</ID>
+      <Name>Occupation</Name>
+      <Type>Text</Type>
+      <Content>Discrete</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="aa277da5-e7d8-4782-bd28-b3afa081703b">
+          <DataType>WChar</DataType>
+          <DataSize>255</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="9211d076-475c-4950-9f17-b295a235d6b3">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Occupation</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="06cdc9ce-a1e5-42af-b3fe-051a0f8ab381">
+      <ID>Overall Fear Score</ID>
+      <Name>Overall Fear Score</Name>
+      <Type>Double</Type>
+      <Content>Continuous</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="c9294257-c9e8-4c2a-a418-bc63678aa252">
+          <DataType>Double</DataType>
+          <DataSize>-1</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="fbc06252-4e46-47f6-a229-60e44d634cd7">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Overall_Fear_Score</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="26245cc5-32fa-44cd-b706-6799dfd4705a">
+      <ID>Privacy Fear</ID>
+      <Name>Privacy Fear</Name>
+      <Type>Double</Type>
+      <Content>Continuous</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="45e87909-6865-430b-b457-cd35621a73b9">
+          <DataType>Double</DataType>
+          <DataSize>-1</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="f3eb054d-fe46-4c4d-9a85-f753b27e8a2c">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Privacy_Fear</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="f87a3f88-c1ac-450f-8b86-1a6d5d4adba0">
+      <ID>Safety Fear</ID>
+      <Name>Safety Fear</Name>
+      <Type>Double</Type>
+      <Content>Continuous</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="8117709a-505f-48a8-b3a3-4662dc6341a1">
+          <DataType>Double</DataType>
+          <DataSize>-1</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="22839fe6-1318-4d07-8d8d-6e9af740e13f">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Safety_Fear</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+    <Column xsi:type="ScalarMiningStructureColumn" dwd:design-time-name="56578bda-f078-4154-a611-e13bd0434871">
+      <ID>Social Impact Fear</ID>
+      <Name>Social Impact Fear</Name>
+      <Type>Double</Type>
+      <Content>Continuous</Content>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="16b41af8-aa4b-41bf-ac17-6fad2ec0cbf6">
+          <DataType>Double</DataType>
+          <DataSize>-1</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="f34c473d-56eb-46c9-b0dd-e6eed46d3094">
+            <TableID>dbo_DATASET</TableID>
+            <ColumnID>Social_Impact_Fear</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Column>
+  </Columns>
+  <MiningModels>
+    <MiningModel dwd:design-time-name="55b7101f-8eac-4f05-ba84-399a18209732">
+      <ID>DECISION_TREE</ID>
+      <Name>DECISION_TREE</Name>
+      <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+      <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+      <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+      <State>Unprocessed</State>
+      <Algorithm>Microsoft_Decision_Trees</Algorithm>
+      <AlgorithmParameters>
+        <AlgorithmParameter>
+          <Name>COMPLEXITY_PENALTY</Name>
+          <Value xsi:type="xsd:double">0.1</Value>
+        </AlgorithmParameter>
+        <AlgorithmParameter>
+          <Name>MINIMUM_SUPPORT</Name>
+          <Value xsi:type="xsd:double">1</Value>
+        </AlgorithmParameter>
+      </AlgorithmParameters>
+      <Columns>
+        <Column dwd:design-time-name="535bbb5f-2295-49a1-b927-924d94abfe05">
+          <ID>Age</ID>
+          <Name>Age</Name>
+          <SourceColumnID>Age</SourceColumnID>
+          <ModelingFlags>
+            <ModelingFlag>REGRESSOR</ModelingFlag>
+          </ModelingFlags>
+        </Column>
+        <Column dwd:design-time-name="d25ac171-f8a2-43d5-93b8-b8dd4426b0e8">
+          <ID>AI Familiarity</ID>
+          <Name>AI Familiarity</Name>
+          <SourceColumnID>AI Familiarity</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="8d735e21-5404-4d34-9b2b-cc3cb4f58659">
+          <ID>AI Usage Frequency</ID>
+          <Name>AI Usage Frequency</Name>
+          <SourceColumnID>AI Usage Frequency</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="6440a5d4-74f9-443f-b7e3-5f9c035599be">
+          <ID>Country</ID>
+          <Name>Country</Name>
+          <SourceColumnID>Country</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="1f79bde3-c13a-4de4-9bda-10c9501eed89">
+          <ID>Education</ID>
+          <Name>Education</Name>
+          <SourceColumnID>Education</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="2e68890a-6b48-4a27-8405-975543b905d3">
+          <ID>Fear Level</ID>
+          <Name>Fear Level</Name>
+          <SourceColumnID>Fear Level</SourceColumnID>
+          <Usage>PredictOnly</Usage>
+        </Column>
+        <Column dwd:design-time-name="cf43972a-b800-497c-87da-ab64c428b3ba">
+          <ID>Gender</ID>
+          <Name>Gender</Name>
+          <SourceColumnID>Gender</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="113282da-b28e-44e0-8ab9-7c1e762b771a">
+          <ID>ID</ID>
+          <Name>ID</Name>
+          <SourceColumnID>ID</SourceColumnID>
+          <Usage>Key</Usage>
+        </Column>
+        <Column dwd:design-time-name="adc0a59d-2bcc-4612-b8eb-2e1f4245009a">
+          <ID>Income Level</ID>
+          <Name>Income Level</Name>
+          <SourceColumnID>Income Level</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="596e3465-4f8c-446a-a50c-811b88479228">
+          <ID>Job Loss Fear</ID>
+          <Name>Job Loss Fear</Name>
+          <SourceColumnID>Job Loss Fear</SourceColumnID>
+          <ModelingFlags>
+            <ModelingFlag>REGRESSOR</ModelingFlag>
+          </ModelingFlags>
+        </Column>
+        <Column dwd:design-time-name="69a14153-1674-4939-a102-fe8df88e81da">
+          <ID>Occupation</ID>
+          <Name>Occupation</Name>
+          <SourceColumnID>Occupation</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="ec9abe0d-12d8-4974-a865-9d6e10ee76d2">
+          <ID>Privacy Fear</ID>
+          <Name>Privacy Fear</Name>
+          <SourceColumnID>Privacy Fear</SourceColumnID>
+          <ModelingFlags>
+            <ModelingFlag>REGRESSOR</ModelingFlag>
+          </ModelingFlags>
+        </Column>
+        <Column dwd:design-time-name="ff70d653-641c-4ffb-9bd2-e7f7e33775e3">
+          <ID>Safety Fear</ID>
+          <Name>Safety Fear</Name>
+          <SourceColumnID>Safety Fear</SourceColumnID>
+          <ModelingFlags>
+            <ModelingFlag>REGRESSOR</ModelingFlag>
+          </ModelingFlags>
+        </Column>
+        <Column dwd:design-time-name="572a5b90-e5ea-4069-a8dc-051a28817284">
+          <ID>Social Impact Fear</ID>
+          <Name>Social Impact Fear</Name>
+          <SourceColumnID>Social Impact Fear</SourceColumnID>
+          <ModelingFlags>
+            <ModelingFlag>REGRESSOR</ModelingFlag>
+          </ModelingFlags>
+        </Column>
+      </Columns>
+    </MiningModel>
+    <MiningModel dwd:design-time-name="1a9dbe3c-1b17-4840-adc7-51dddde82348">
+      <ID>CLUSTERING</ID>
+      <Name>CLUSTERING</Name>
+      <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+      <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+      <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+      <State>Unprocessed</State>
+      <Algorithm>Microsoft_Clustering</Algorithm>
+      <Columns>
+        <Column dwd:design-time-name="7c405915-f133-4988-96b9-1fad5406e66a">
+          <ID>Age</ID>
+          <Name>Age</Name>
+          <SourceColumnID>Age</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="a520e5cc-59ca-4965-8d3c-bc3e8eb6e4b1">
+          <ID>AI Familiarity</ID>
+          <Name>AI Familiarity</Name>
+          <SourceColumnID>AI Familiarity</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="bc83e178-39ef-43fb-9168-c4d86ba3abce">
+          <ID>AI Usage Frequency</ID>
+          <Name>AI Usage Frequency</Name>
+          <SourceColumnID>AI Usage Frequency</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="14893256-1f81-4913-9837-83a76647948d">
+          <ID>Country</ID>
+          <Name>Country</Name>
+          <SourceColumnID>Country</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="ce818db2-0cb2-46e7-943b-eead55d75e39">
+          <ID>Education</ID>
+          <Name>Education</Name>
+          <SourceColumnID>Education</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="5380520c-32e8-4828-a191-34f61df258a6">
+          <ID>Fear Level</ID>
+          <Name>Fear Level</Name>
+          <SourceColumnID>Fear Level</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="2503b236-d715-4463-8344-b21925790ab7">
+          <ID>Gender</ID>
+          <Name>Gender</Name>
+          <SourceColumnID>Gender</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="4c3ff7d9-efe4-41d4-bb84-c19325189b63">
+          <ID>ID</ID>
+          <Name>ID</Name>
+          <SourceColumnID>ID</SourceColumnID>
+          <Usage>Key</Usage>
+        </Column>
+        <Column dwd:design-time-name="e6e18041-8b48-4a21-958e-7d50cca9ca14">
+          <ID>Income Level</ID>
+          <Name>Income Level</Name>
+          <SourceColumnID>Income Level</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="e4320703-b984-4d86-97ba-79ceb3774ce8">
+          <ID>Job Loss Fear</ID>
+          <Name>Job Loss Fear</Name>
+          <SourceColumnID>Job Loss Fear</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="8247ff1d-2399-4a4d-a6c4-635e4b4633ff">
+          <ID>Occupation</ID>
+          <Name>Occupation</Name>
+          <SourceColumnID>Occupation</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="787e9859-7691-4da1-9763-660b2b9ac9e1">
+          <ID>Overall Fear Score</ID>
+          <Name>Overall Fear Score</Name>
+          <SourceColumnID>Overall Fear Score</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="e5093a8b-2073-45af-9f70-c9b87ab705d7">
+          <ID>Privacy Fear</ID>
+          <Name>Privacy Fear</Name>
+          <SourceColumnID>Privacy Fear</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="91ad6fd0-a436-422b-85a9-bf085ca40508">
+          <ID>Safety Fear</ID>
+          <Name>Safety Fear</Name>
+          <SourceColumnID>Safety Fear</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="151d25e7-cce6-4ff7-b6c9-ca7a2b54537b">
+          <ID>Social Impact Fear</ID>
+          <Name>Social Impact Fear</Name>
+          <SourceColumnID>Social Impact Fear</SourceColumnID>
+        </Column>
+      </Columns>
+    </MiningModel>
+    <MiningModel dwd:design-time-name="baebdf5a-be24-4790-87e9-b1e3d16d40da">
+      <ID>LOGISTIC_REGRESSION</ID>
+      <Name>LOGISTIC_REGRESSION</Name>
+      <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+      <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+      <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+      <State>Unprocessed</State>
+      <Algorithm>Microsoft_Logistic_Regression</Algorithm>
+      <Columns>
+        <Column dwd:design-time-name="942003b3-0c86-4257-804a-69031d09062a">
+          <ID>Age</ID>
+          <Name>Age</Name>
+          <SourceColumnID>Age</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="a60cb78a-cb1e-46d1-a8fa-691de74a7397">
+          <ID>AI Familiarity</ID>
+          <Name>AI Familiarity</Name>
+          <SourceColumnID>AI Familiarity</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="97b4aaae-5ee6-42e1-948f-9274e8e19f9b">
+          <ID>AI Usage Frequency</ID>
+          <Name>AI Usage Frequency</Name>
+          <SourceColumnID>AI Usage Frequency</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="fd793a86-20ba-44ca-b747-daed9a3b89a3">
+          <ID>Country</ID>
+          <Name>Country</Name>
+          <SourceColumnID>Country</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="d12c7e88-d4ea-4820-98b1-e8c8d533df7d">
+          <ID>Education</ID>
+          <Name>Education</Name>
+          <SourceColumnID>Education</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="7f30fcc1-069c-4a99-aeff-e1bb3a3a76da">
+          <ID>Fear Level</ID>
+          <Name>Fear Level</Name>
+          <SourceColumnID>Fear Level</SourceColumnID>
+          <Usage>Predict</Usage>
+        </Column>
+        <Column dwd:design-time-name="88c47478-70db-45c3-a2d0-3a52f03c3d1d">
+          <ID>Gender</ID>
+          <Name>Gender</Name>
+          <SourceColumnID>Gender</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="8c820d43-c1bd-41d3-be15-c08ce8cba1a0">
+          <ID>ID</ID>
+          <Name>ID</Name>
+          <SourceColumnID>ID</SourceColumnID>
+          <Usage>Key</Usage>
+        </Column>
+        <Column dwd:design-time-name="df6602fa-a57f-4215-84db-b7e1d0c7f4f7">
+          <ID>Income Level</ID>
+          <Name>Income Level</Name>
+          <SourceColumnID>Income Level</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="99476ddf-e919-4a6d-84cc-32a817a84329">
+          <ID>Job Loss Fear</ID>
+          <Name>Job Loss Fear</Name>
+          <SourceColumnID>Job Loss Fear</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="1a04cd82-699e-48e7-8b4e-488666763f68">
+          <ID>Occupation</ID>
+          <Name>Occupation</Name>
+          <SourceColumnID>Occupation</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="0c8bb9a4-85d6-4762-9a30-463678ccb49c">
+          <ID>Overall Fear Score</ID>
+          <Name>Overall Fear Score</Name>
+          <SourceColumnID>Overall Fear Score</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="e85e476b-20ba-4340-b847-e6e54c2a1350">
+          <ID>Privacy Fear</ID>
+          <Name>Privacy Fear</Name>
+          <SourceColumnID>Privacy Fear</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="7766a99c-e731-4028-87f5-e255ac658b4d">
+          <ID>Safety Fear</ID>
+          <Name>Safety Fear</Name>
+          <SourceColumnID>Safety Fear</SourceColumnID>
+        </Column>
+        <Column dwd:design-time-name="4134c55d-485e-4820-be76-bf4bf8b2188b">
+          <ID>Social Impact Fear</ID>
+          <Name>Social Impact Fear</Name>
+          <SourceColumnID>Social Impact Fear</SourceColumnID>
+        </Column>
+      </Columns>
+    </MiningModel>
+  </MiningModels>
+  <ddl100_100:HoldoutMaxPercent>30</ddl100_100:HoldoutMaxPercent>
+</MiningStructure>
