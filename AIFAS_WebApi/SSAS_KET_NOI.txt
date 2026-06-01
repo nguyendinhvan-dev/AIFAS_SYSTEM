@@ -1,0 +1,28 @@
+Kết nối SSAS — xử lý lỗi "A connection cannot be made"
+====================================================
+
+1) Mở Services (Win+R → services.msc), tìm dịch vụ Analysis Services, ví dụ:
+   - SQL Server Analysis Services (MSSQLSERVER)
+   - hoặc SQL Server Analysis Services (SSASMD) — khớp với MSOLAP$SSASMD trong project SQL của bạn
+
+   Trạng thái phải là Đang chạy (Running).
+
+2) Chuỗi Data Source phải đúng máy + đúng instance:
+   - Máy bạn: có thể là  TÊN_MÁY\TÊN_INSTANCE  (ví dụ đã dùng VAN\SSASMD trong appsettings).
+   - Thử SSMS: Connect → Analysis Services → nhập cùng Data Source. Nếu SSMS kết nối được thì copy nguyên chuỗi đó vào appsettings.json (mục Ssas:ConnectionString).
+
+3) Initial Catalog phải trùng tên database SSAS đã deploy (của bạn: AIFAS_SSAS).
+
+4) Nếu chỉ demo giao diện: có thể tạm không bấm dự đoán, hoặc chạy SSAS trên máy khác rồi đổi Data Source thành IP/Tên máy đó.
+
+5) Ghi đè chuỗi bằng biến môi trường (không sửa file):
+
+   CMD:
+   set SSAS_CONNECTION_STRING=Data Source=VAN\SSASMD;Initial Catalog=AIFAS_SSAS;Integrated Security=SSPI;
+   dotnet run
+
+   PowerShell:
+   $env:SSAS_CONNECTION_STRING="Data Source=VAN\SSASMD;Initial Catalog=AIFAS_SSAS;Integrated Security=SSPI;"
+   dotnet run
+
+6) Nếu vẫn lỗi: mở SQL Server Configuration Manager → SQL Server Services / Analysis Services → xem tên instance chính xác là gì.

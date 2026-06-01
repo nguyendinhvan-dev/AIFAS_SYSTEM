@@ -1,0 +1,47 @@
+﻿SELECT MODEL_NAME, MINING_STRUCTURE, 
+MINING_PARAMETERS, TRAINING_SET_SIZE
+FROM $system.DMSCHEMA_MINING_MODELS
+
+SELECT NODE_CAPTION, NODE_SUPPORT, NODE_PROBABILITY
+FROM DECISION_TREE.CONTENT
+WHERE NODE_TYPE = 4
+ORDER BY NODE_SUPPORT DESC
+
+SELECT MODEL_NAME, COLUMN_NAME, IS_PREDICTABLE, IS_INPUT
+FROM $system.DMSCHEMA_MINING_COLUMNS
+WHERE MODEL_NAME = 'DECISION_TREE'
+
+SELECT 
+PredictProbability([Fear Level],'High') AS High,
+PredictProbability([Fear Level],'Medium') AS Medium,
+PredictProbability([Fear Level],'Low') AS Low
+FROM [DECISION_TREE]
+NATURAL PREDICTION JOIN
+(SELECT 35 AS [Age], 'Male' AS [Gender],
+'Bachelor' AS [Education], 7.5 AS [Job Loss Fear],
+7.0 AS [Overall Fear Score], 'High' AS [AI Familiarity]) AS t
+
+
+
+
+SELECT Cluster() AS CumPhanLoai,
+ClusterProbability() AS XacSuat
+FROM [CLUSTERING]
+NATURAL PREDICTION JOIN
+(SELECT 25 AS [Age], 'Female' AS [Gender],
+8.0 AS [Job Loss Fear], 8.0 AS [Overall Fear Score],
+'Low' AS [AI Familiarity]) AS t
+
+
+SELECT 
+PredictProbability([Fear Level],'High') AS High,
+PredictProbability([Fear Level],'Medium') AS Medium,
+PredictProbability([Fear Level],'Low') AS Low
+FROM [LOGISTIC_REGRESSION]
+NATURAL PREDICTION JOIN
+(SELECT 45 AS [Age], 'Male' AS [Gender],
+6.0 AS [Job Loss Fear], 5.5 AS [Overall Fear Score],
+'High' AS [AI Familiarity]) AS t
+
+
+

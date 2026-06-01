@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIFAS | KNOWLEDGE HUB</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ff66; 
+            --bg: #050505;
+            --border: rgba(0, 255, 102, 0.12);
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --font-accent: 'Syne', sans-serif;
+            --font-main: 'Be Vietnam Pro', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-family: var(--font-accent); font-size: 26px; font-weight: 800; letter-spacing: -1.5px; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; list-style: none; height: 100%; }
+        .nav-links li { height: 100%; border-left: 1px solid var(--border); }
+        .nav-links a {
+            text-decoration: none; color: #fff; font-size: 12px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding: 0 30px; height: 100%; display: flex; align-items: center;
+            transition: 0.4s; opacity: 0.5;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            opacity: 1; background: rgba(0, 255, 102, 0.08); color: var(--primary);
+        }
+
+        .container { padding: 140px 8% 80px; max-width: 1400px; margin: 0 auto; }
+
+        /* --- BLOG LAYOUT --- */
+        .blog-header { margin-bottom: 80px; }
+        .tag { font-family: monospace; color: var(--primary); font-size: 11px; letter-spacing: 3px; display: block; margin-bottom: 20px; }
+        h1 { font-family: var(--font-accent); font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; line-height: 1.1; }
+
+        .blog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+        
+        .article-card { 
+            background: var(--bg); padding: 50px; transition: background 0.35s, border-color 0.35s; 
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 450px; text-decoration: none; color: inherit;
+            border: 1px solid transparent;
+        }
+        .article-card .article-title { color: #e2e8f0; transition: color 0.3s; }
+        .article-card:hover { background: rgba(0, 255, 102, 0.04); border-color: var(--border); }
+        .article-card:hover .article-title { color: var(--primary); }
+
+        .article-meta { font-family: monospace; font-size: 11px; color: var(--text-dim); margin-bottom: 20px; display: flex; gap: 20px; }
+        .article-title { font-family: var(--font-accent); font-size: 24px; text-transform: uppercase; margin-bottom: 25px; line-height: 1.3; }
+
+        .featured-banner .featured-headline {
+            font-family: var(--font-accent); font-size: clamp(1.4rem, 3.5vw, 2rem);
+            text-transform: uppercase; line-height: 1.25; color: #e2e8f0; transition: color 0.3s;
+            margin-bottom: 20px;
+        }
+        .featured-banner:hover .featured-headline { color: var(--primary); }
+        .article-excerpt { font-size: 15px; color: var(--text-dim); line-height: 1.8; margin-bottom: 30px; }
+
+        .read-more { 
+            font-size: 11px; text-transform: uppercase; letter-spacing: 2px; 
+            font-weight: 700; display: flex; align-items: center; gap: 10px; color: #fff;
+        }
+        .read-more i { font-size: 18px; color: var(--primary); }
+
+        /* --- FEATURED SECTION --- */
+        .featured-banner {
+            grid-column: span 2; background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border); padding: 60px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+        }
+
+        .category-pill {
+            display: inline-block; padding: 5px 12px; border: 1px solid var(--primary);
+            color: var(--primary); font-size: 10px; font-family: monospace; margin-bottom: 20px;
+        }
+
+        footer { padding: 60px 8%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 11px; letter-spacing: 2px; }
+
+        @media (max-width: 1024px) { 
+            .blog-grid { grid-template-columns: 1fr; } 
+            .featured-banner { grid-column: span 1; grid-template-columns: 1fr; }
+            nav { flex-wrap: wrap; height: auto; min-height: 72px; padding: 10px 4% 14px; gap: 8px; }
+            .nav-links { flex-wrap: wrap; width: 100%; justify-content: flex-start; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; height: auto; }
+            .nav-links li { height: auto; border-left: none; border-right: 1px solid var(--border); }
+            .nav-links li:first-child { border-left: 1px solid var(--border); }
+            .nav-links a { height: auto; padding: 10px 14px; font-size: 10px; letter-spacing: 1px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="trangchu.html" class="logo" style="text-decoration:none; color:inherit;">AIFAS<span>_SYSTEM</span></a>
+        <ul class="nav-links">
+            <li><a href="trangchu.html">01. Trang Chủ</a></li>
+            <li><a href="phantich.html">02. Phân Tích</a></li>
+            <li><a href="ungdung.html">03. Ứng Dụng</a></li>
+            <li><a href="baiviet.html" class="active">04. Bài Viết</a></li>
+            <li><a href="lienhe.html">05. Liên Hệ</a></li>
+        </ul>
+        <div style="font-family: monospace; font-size: 11px; color: var(--primary);">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--primary); border-radius:50%; margin-right:8px; box-shadow: 0 0 10px var(--primary);"></span>
+            SYSTEM_ACTIVE: v4.2.0
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="blog-header">
+            <span class="tag">[ RESEARCH_JOURNAL_V2.0 ]</span>
+            <h1>TRI THỨC & <span style="color: var(--primary)">KHÁM PHÁ AI</span></h1>
+        </header>
+
+        <div class="blog-grid">
+            <div class="featured-banner">
+                <div>
+                    <span class="category-pill">TOP_RESEARCH</span>
+                    <h2 class="featured-headline">Giải mã nỗi sợ AI: Tại sao chúng ta lo lắng về việc mất bản sắc?</h2>
+                    <p class="article-excerpt">Nghiên cứu của AIFAS chỉ ra rằng lo ngại lớn nhất không phải là mất việc làm, mà là sự xói mòn các giá trị nhân văn trong quy trình làm việc tự động hóa.</p>
+                    <a href="baiviet-1.html" class="read-more">Đọc bài đầy đủ <i class="ti ti-arrow-right"></i></a>
+                </div>
+                <div style="border: 1px solid var(--border); height: 250px; display: flex; align-items: center; justify-content: center; background: rgba(0,255,102,0.05);">
+                    <i class="ti ti-microscope" style="font-size: 80px; color: var(--primary); opacity: 0.3;"></i>
+                </div>
+            </div>
+
+            <a href="baiviet-2.html" class="article-card">
+                <div>
+                    <div class="article-meta"><span>MAY 12, 2024</span><span>•</span><span>TECHNICAL</span></div>
+                    <h3 class="article-title">Tối ưu hóa thuật toán Decision Tree trên tập dữ liệu khảo sát</h3>
+                    <p class="article-excerpt">Làm thế nào chúng tôi đạt được độ chính xác 84% bằng cách tinh chỉnh các thông số Entropy và Gini Impurity trong quá trình phân lớp dữ liệu.</p>
+                </div>
+                <div class="read-more">Xem kỹ thuật <i class="ti ti-chevron-right"></i></div>
+            </a>
+
+            <a href="baiviet-3.html" class="article-card">
+                <div>
+                    <div class="article-meta"><span>MAY 10, 2024</span><span>•</span><span>DATA_MINING</span></div>
+                    <h3 class="article-title">Quy trình ETL: Từ dữ liệu thô đến kho dữ liệu thông minh</h3>
+                    <p class="article-excerpt">Khám phá cách sử dụng SSIS để trích xuất dữ liệu từ các nguồn không cấu trúc và nạp vào Star Schema để phục vụ truy vấn OLAP thời gian thực.</p>
+                </div>
+                <div class="read-more">Xem quy trình <i class="ti ti-chevron-right"></i></div>
+            </a>
+
+            <a href="baiviet-4.html" class="article-card">
+                <div>
+                    <div class="article-meta"><span>MAY 08, 2024</span><span>•</span><span>SOCIOLOGY</span></div>
+                    <h3 class="article-title">Tâm lý học về tự động hóa: Một cái nhìn đa chiều</h3>
+                    <p class="article-excerpt">Phân tích sự khác biệt trong tiếp nhận công nghệ giữa các thế hệ Baby Boomers, Gen X và Gen Z thông qua các chỉ số định lượng thu thập được.</p>
+                </div>
+                <div class="read-more">Xem phân tích <i class="ti ti-chevron-right"></i></div>
+            </a>
+
+            <a href="baiviet-5.html" class="article-card">
+                <div>
+                    <div class="article-meta"><span>MAY 05, 2024</span><span>•</span><span>FUTURE_TECH</span></div>
+                    <h3 class="article-title">Vai trò của con người trong kỷ nguyên Generative AI</h3>
+                    <p class="article-excerpt">Dữ liệu dự báo năm 2025 cho thấy sự dịch chuyển từ kỹ năng thực thi sang kỹ năng giám sát và tư duy phản biện đối với kết quả của AI.</p>
+                </div>
+                <div class="read-more">Xem dự báo <i class="ti ti-chevron-right"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div>© 2024 AIFAS KNOWLEDGE BASE</div>
+        <div style="font-family: monospace; opacity: 0.7;">[ SYSTEM_STATUS: ONLINE ]</div>
+        <div>DEVELOPED BY RESEARCH TEAM</div>
+    </footer>
+
+</body>
+</html>

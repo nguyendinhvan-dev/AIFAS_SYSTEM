@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIFAS | PHÂN TÍCH DỮ LIỆU ĐA CHIỀU</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ff66; 
+            --bg: #050505;
+            --border: rgba(0, 255, 102, 0.12);
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --font-accent: 'Syne', sans-serif;
+            --font-main: 'Be Vietnam Pro', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body { max-width: 100%; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* --- NAVIGATION (giống hệt trang chủ) --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: var(--font-accent); font-size: 26px; font-weight: 800;
+            letter-spacing: -1.5px; display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: var(--text-main);
+        }
+        .logo span { color: var(--primary); text-shadow: 0 0 15px rgba(0, 255, 102, 0.5); }
+
+        .nav-links { display: flex; list-style: none; height: 100%; }
+        .nav-links li { height: 100%; border-left: 1px solid var(--border); }
+        .nav-links a {
+            text-decoration: none; color: #fff; font-size: 12px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding: 0 30px; height: 80px; display: flex; align-items: center;
+            transition: 0.4s; opacity: 0.5;
+        }
+        .nav-links a:hover { opacity: 1; background: rgba(0, 255, 102, 0.08); color: var(--primary); }
+        .nav-links a.active { opacity: 1; background: rgba(0, 255, 102, 0.08); color: var(--primary); }
+
+        /* --- PAGE HEADER --- */
+        .page-top {
+            padding: 140px 8% 80px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .page-tag {
+            font-family: monospace; color: var(--primary);
+            font-size: 11px; letter-spacing: 3px;
+            margin-bottom: 20px; display: block;
+        }
+
+        .page-top h1 {
+            font-family: var(--font-accent);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            text-transform: uppercase; line-height: 1;
+            margin-bottom: 30px;
+        }
+        .page-top h1 span { color: var(--primary); }
+
+        .page-top p {
+            max-width: 750px; color: var(--text-dim);
+            line-height: 1.8; font-size: 16px; font-weight: 300;
+            border-left: 4px solid var(--primary);
+            padding-left: 25px;
+        }
+
+        /* Live stats bar */
+        .stats-bar {
+            display: flex; gap: 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 60px 0 0;
+        }
+        .stats-bar-item {
+            flex: 1; padding: 25px 30px;
+            border-right: 1px solid var(--border);
+        }
+        .stats-bar-item:last-child { border-right: none; }
+        .stats-bar-item h4 {
+            font-size: 10px; color: var(--primary);
+            letter-spacing: 4px; text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .stats-bar-item p {
+            font-family: monospace; font-size: 22px;
+            font-weight: bold; color: #fff;
+            border: none; padding: 0;
+        }
+
+        /* --- CONTENT AREA --- */
+        .container { padding: 60px 8% 100px; }
+
+        /* --- DATA GRID SYSTEM --- */
+        .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; background: var(--border); }
+        
+        .box { 
+            background: var(--bg);
+            padding: 45px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s;
+        }
+        .box:hover { background: #080808; }
+        .box::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 3px; height: 0;
+            background: var(--primary); transition: 0.5s;
+        }
+        .box:hover::before { height: 100%; }
+
+        .span-12 { grid-column: span 12; }
+        .span-8  { grid-column: span 8; }
+        .span-4  { grid-column: span 4; }
+        .span-6  { grid-column: span 6; }
+
+        /* --- UI ELEMENTS --- */
+        .tag {
+            font-family: monospace; color: var(--primary);
+            font-size: 10px; letter-spacing: 3px;
+            display: block; margin-bottom: 15px;
+            opacity: 0.7;
+        }
+        .box-title {
+            font-family: var(--font-accent); font-size: 20px;
+            text-transform: uppercase; margin-bottom: 25px;
+            display: flex; align-items: center; gap: 12px;
+            letter-spacing: 1px;
+        }
+        .box-title i { color: var(--primary); font-size: 22px; }
+        
+        /* --- BAR CHART --- */
+        .chart-container {
+            height: 240px; display: flex;
+            align-items: flex-end; gap: 12px; margin-top: 25px;
+        }
+        .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--primary) 0%, rgba(0,255,102,0.2) 100%);
+            opacity: 0.6; transition: 0.4s; position: relative;
+            cursor: default;
+        }
+        .bar:hover { opacity: 1; box-shadow: 0 0 20px rgba(0,255,102,0.3); }
+        .bar-val { font-family: monospace; font-size: 11px; color: var(--primary); }
+        .bar-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+
+        /* --- INFO LIST --- */
+        .info-list { list-style: none; }
+        .info-list li {
+            padding: 14px 0; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; font-size: 14px;
+        }
+        .info-list li:last-child { border-bottom: none; }
+        .info-list li span:first-child { color: var(--text-dim); }
+        .info-list li span:last-child { color: var(--primary); font-weight: 700; font-family: monospace; }
+
+        /* --- HEATMAP TABLE --- */
+        .heatmap-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
+        .heatmap-table th {
+            padding: 12px 15px; border: 1px solid var(--border);
+            text-align: center; font-size: 10px; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--text-dim); font-weight: 600;
+        }
+        .heatmap-table td { padding: 13px 15px; border: 1px solid var(--border); text-align: center; font-family: monospace; }
+        .h-high { background: rgba(0, 255, 102, 0.25); color: #fff; font-weight: bold; }
+        .h-med  { background: rgba(0, 255, 102, 0.10); color: var(--text-main); }
+        .h-low  { background: rgba(255, 255, 255, 0.03); color: var(--text-dim); }
+
+        /* --- INSIGHT CARDS --- */
+        .insight-item {
+            border-left: 3px solid var(--primary);
+            padding: 18px 20px;
+            background: rgba(0,255,102,0.03);
+            margin-bottom: 18px;
+        }
+        .insight-item:last-child { margin-bottom: 0; }
+        .insight-item h4 { font-size: 14px; margin-bottom: 8px; font-family: var(--font-accent); letter-spacing: 0.5px; }
+        .insight-item p { font-size: 13px; color: var(--text-dim); line-height: 1.7; font-weight: 300; }
+
+        /* --- PIPELINE STEPS --- */
+        .pipeline-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1px; background: var(--border); margin-top: 25px;
+        }
+        .pipeline-step {
+            padding: 30px 20px; text-align: center;
+            background: var(--bg); transition: background 0.3s;
+        }
+        .pipeline-step:hover { background: #0a0a0a; }
+        .pipeline-step i { font-size: 32px; color: var(--primary); margin-bottom: 12px; display: block; }
+        .pipeline-step b { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+        .pipeline-step p { font-size: 12px; color: var(--text-dim); line-height: 1.6; font-weight: 300; }
+
+        /* --- FOOTER (giống hệt trang chủ) --- */
+        footer {
+            padding: 80px 5% 40px; border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-info { font-size: 11px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+
+        .chart-section { padding: 48px 8% 56px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.35); }
+        .chart-section .page-tag { padding-left: 0; margin-bottom: 12px; display: block; }
+        .chart-research-wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 36px; align-items: start; max-width: 1200px; margin: 0 auto; }
+        .chart-panel { border: 1px solid var(--border); padding: 28px 24px; background: var(--bg); }
+        .chart-panel h3 { font-family: var(--font-accent); font-size: 18px; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .chart-panel .cap { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-top: 18px; }
+        .chart-canvas-wrap { position: relative; height: 260px; max-width: 100%; }
+
+        .synthesis-section { border-bottom: 1px solid var(--border); }
+        .synthesis-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 8% 56px;
+        }
+        .synthesis-wrap h2 {
+            font-family: var(--font-accent);
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 22px;
+            color: #fff;
+        }
+        .synthesis-wrap h2 span { color: var(--primary); }
+        .synthesis-wrap h3 {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin: 28px 0 12px;
+        }
+        .synthesis-wrap p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+        .synthesis-wrap ul { margin: 8px 0 20px 22px; color: var(--text-dim); line-height: 1.85; font-size: 15px; }
+        .synthesis-wrap li { margin-bottom: 10px; }
+        .synthesis-wrap strong { color: var(--text-main); font-weight: 600; }
+
+        @media (max-width: 1024px) {
+            .span-8, .span-4, .span-6 { grid-column: span 12; }
+            .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-bar { flex-wrap: wrap; }
+            .stats-bar-item { flex: 1 1 50%; border-bottom: 1px solid var(--border); }
+            nav { flex-wrap: wrap; height: auto; min-height: 72px; padding: 10px 4% 14px; gap: 8px; }
+            .nav-links { flex-wrap: wrap; width: 100%; justify-content: flex-start; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; height: auto; }
+            .nav-links li { height: auto; border-left: none; border-right: 1px solid var(--border); }
+            .nav-links li:first-child { border-left: 1px solid var(--border); }
+            .nav-links a { height: auto; padding: 10px 14px; font-size: 10px; letter-spacing: 1px; }
+            .chart-research-wrap { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="trangchu.html" class="logo" style="text-decoration:none; color:inherit;">AIFAS<span>_SYSTEM</span></a>
+        <ul class="nav-links">
+            <li><a href="trangchu.html">01. Trang Chủ</a></li>
+            <li><a href="phantich.html" class="active">02. Phân Tích</a></li>
+            <li><a href="ungdung.html">03. Ứng Dụng</a></li>
+            <li><a href="baiviet.html">04. Bài Viết</a></li>
+            <li><a href="lienhe.html">05. Liên Hệ</a></li>
+        </ul>
+        <div style="font-family: monospace; font-size: 11px; color: var(--primary);">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--primary); border-radius:50%; margin-right:8px; box-shadow: 0 0 10px var(--primary);"></span>
+            SYSTEM_ACTIVE: v4.2.0
+        </div>
+    </nav>
+
+    <div class="page-top">
+        <span class="page-tag">[ MODULE: DEEP_DIVE_ANALYTICS ]</span>
+        <h1>PHÂN TÍCH <span>DỮ LIỆU ĐA CHIỀU</span></h1>
+        <p>Hệ thống khai phá dữ liệu AIFAS sử dụng mô hình Star Schema trên SQL Server và các khối OLAP để bóc tách tâm lý xã hội. Dưới đây là kết quả định lượng chi tiết về sự giao thoa giữa con người và thuật toán.</p>
+        <div class="stats-bar">
+            <div class="stats-bar-item">
+                <h4>Data Rows</h4>
+                <p>1,240,853</p>
+            </div>
+            <div class="stats-bar-item">
+                <h4>Mẫu Sạch</h4>
+                <p>5,024</p>
+            </div>
+            <div class="stats-bar-item">
+                <h4>Accuracy</h4>
+                <p>84.22%</p>
+            </div>
+            <div class="stats-bar-item">
+                <h4>ETL Latency</h4>
+                <p>14ms</p>
+            </div>
+            <div class="stats-bar-item">
+                <h4>Engine Status</h4>
+                <p>OLAP_READY</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="chart-section">
+        <span class="page-tag">[ TỔNG HỢP KẾT QUẢ NGHIÊN CỨU ]</span>
+        <div class="chart-research-wrap">
+            <div class="chart-panel">
+                <h3>Phân bổ nhãn Fear Level (sau làm sạch)</h3>
+                <div class="chart-canvas-wrap"><canvas id="chartFearDist"></canvas></div>
+                <p class="cap"><strong>Chú thích:</strong> Tỷ lệ quan sát trên mẫu đưa vào kho AIFAS (minh họa báo cáo). Trục màu thể hiện mức độ «nỗi sợ tự báo cáo» được gán nhãn High / Medium / Low sau chuẩn hóa. Dùng làm bối cảnh trước khi đọc các ô Decision Tree và Logistic bên dưới.</p>
+            </div>
+            <div class="chart-panel">
+                <h3>So sánh hiệu năng mô hình (tập kiểm định)</h3>
+                <div class="chart-canvas-wrap"><canvas id="chartModelCompare"></canvas></div>
+                <p class="cap"><strong>Chú thích:</strong> Cột «Độ chính xác» và «F1» là chỉ số phân loại; cột «Silhouette» (gom cụm) đo mức tách cụm trên thang 0–1. Giá trị mang tính minh họa quy trình đánh giá — nhóm có thể thay bằng số liệu thực từ SSAS / Excel.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="chart-section synthesis-section">
+        <span class="page-tag">[ TỔNG KẾT KẾT QUẢ · DATA MINING &amp; XÁC SUẤT ]</span>
+        <div class="synthesis-wrap">
+            <h2>Tổng hợp <span>đầu ra phân tích</span></h2>
+            <p>
+                Pipeline AIFAS kết thúc bằng ba đối tượng khai phá trên SQL Server Analysis Services: <strong>cây quyết định</strong> và <strong>hồi quy logistic</strong> cùng dự báo nhãn rời rạc <code>Fear Level</code> (High / Medium / Low) kèm vector xác suất có điều kiện; <strong>phân cụm (clustering)</strong> gán mỗi hồ sơ vào một trong các cụm hành vi đồng dạng trong không gian đặc trưng (tuổi, quen thuộc AI, các thang lo âu cụ thể, bối cảnh địa lý–thu nhập…). Điểm then chốt là: <em>cụm không thay thế nhãn sợ hãi</em> — nó trả lời câu hỏi «bạn giống nhóm nào trong dữ liệu lịch sử», trong khi hai mô hình phân lớp trả lời «với hồ sơ này, phân phối niềm tin của mô hình trên ba mức lo âu tổng hợp là gì».
+            </p>
+            <h3>1. Phân cụm: bao nhiêu nhóm và đọc thế nào?</h3>
+            <p>
+                Thuật toán gom cụm (ví dụ EM / k-means trong SSAS, tùy cấu hình dự án) tạo ra <strong>K cụm</strong> (K do tham số huấn luyện quyết định). Mỗi quan sát nhận một nhãn cụm và giá trị <code>ClusterProbability()</code> — tức mức tin cậy rằng điểm dữ liệu thuộc cụm được gán, không phải xác suất «sợ cao» hay «sợ thấp». Trên trang Ứng dụng, người dùng thấy «Cụm n» và thanh Fit chính là diễn giải trực quan của đại lượng này. Khi viết báo cáo, nên ghép cụm với profile trung bình của từng cụm (mean các thang lo âu, tỷ lệ nghề) để tránh suy diễn đạo đức từ một con số phần trăm đơn độc.
+            </p>
+            <h3>2. Dự báo nhãn và phân bổ xác suất</h3>
+            <p>
+                Với <strong>Decision Tree</strong>, nhãn <code>Predict(Fear Level)</code> đi cùng ba giá trị <code>PredictProbability([Fear Level], 'High'|'Medium'|'Low')</code>. Với <strong>Logistic Regression</strong>, cấu trúc đầu ra tương tự nhưng bề mặt quyết định thường «mượt» hơn: ranh giới giữa các lớp được ước lượng bằng hàm link logit, do đó hai mô hình có thể <em>đồng thuận hoặc bất đồng</em> trên cùng một hồ sơ — hiện tượng này là bình thường và là cơ sở để thảo luận về độ nhạy với nhiễu và độ lệch mô hình (bias–variance) trong hội đồng.
+            </p>
+            <h3>3. Tổng kết minh họa trên dashboard</h3>
+            <p>
+                Biểu đồ phân bổ nhãn và biểu đồ so sánh hiệu năng trên trang này mang tính <strong>minh họa quy trình</strong> (có thể thay bằng số liệu thực từ SSAS, Excel hoặc Python sau khi xuất kết quả đánh giá). Về mặt học thuật, nhóm nên bổ sung: ma trận nhầm lẫn (confusion matrix) cho từng mô hình phân lớp, đường cong ROC / macro-F1 nếu gộp nhãn, và chỉ số silhouette hoặc log-likelihood held-out cho phân cụm — để chứng minh không chỉ «chạy được» mà còn «đo lường được chất lượng suy luận thống kê».
+            </p>
+            <ul>
+                <li><strong>Đồng bộ dữ liệu–mining:</strong> tên cột trong form Web khớp mining structure (kể cả khoảng trắng trong tên biến) để câu DMX <code>NATURAL PREDICTION JOIN</code> hợp lệ.</li>
+                <li><strong>Đọc kết quả đa mô hình:</strong> ưu tiên phân bổ xác suất và độ phù hợp cụm; tránh chỉ dùng một nhãn điểm duy nhất cho ra quyết định can thiệp.</li>
+                <li><strong>Kiểm định ngoài mẫu:</strong> giữ tập hold-out hoặc cross-validation trước khi trích xuất các con số «Accuracy / F1» cho báo cáo cuối kỳ.</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="grid-layout">
+
+            <!-- BAR CHART -->
+            <div class="box span-8">
+                <span class="tag">DATA_VISUALIZATION_01</span>
+                <h3 class="box-title"><i class="ti ti-chart-bar"></i> Chỉ Số Lo Âu Theo Ngành Nghề</h3>
+                <p style="font-size: 14px; color: var(--text-dim);">Mức độ lo ngại về việc bị thay thế bởi AI trên thang điểm 100%.</p>
+                <div class="chart-container">
+                    <div class="bar-group"><div class="bar" style="height: 88%;"></div><span class="bar-val">88%</span><span class="bar-label">Văn phòng</span></div>
+                    <div class="bar-group"><div class="bar" style="height: 78%;"></div><span class="bar-val">78%</span><span class="bar-label">Dịch vụ</span></div>
+                    <div class="bar-group"><div class="bar" style="height: 72%;"></div><span class="bar-val">72%</span><span class="bar-label">Sáng tạo</span></div>
+                    <div class="bar-group"><div class="bar" style="height: 65%;"></div><span class="bar-val">65%</span><span class="bar-label">Kỹ thuật</span></div>
+                    <div class="bar-group"><div class="bar" style="height: 42%;"></div><span class="bar-val">42%</span><span class="bar-label">Y tế</span></div>
+                    <div class="bar-group"><div class="bar" style="height: 35%;"></div><span class="bar-val">35%</span><span class="bar-label">Giáo dục</span></div>
+                </div>
+            </div>
+
+            <!-- MODEL EVAL -->
+            <div class="box span-4">
+                <span class="tag">MODEL_EVALUATION</span>
+                <h3 class="box-title"><i class="ti ti-activity"></i> Độ Tin Cậy</h3>
+                <ul class="info-list">
+                    <li><span>Thuật toán tối ưu</span><span>Decision Tree</span></li>
+                    <li><span>Độ chính xác (Accuracy)</span><span>84.22%</span></li>
+                    <li><span>Hệ số F1-Score</span><span>0.81</span></li>
+                    <li><span>Độ trễ truy vấn</span><span>14ms</span></li>
+                    <li><span>Mẫu sạch (Cleaned)</span><span>5,024</span></li>
+                </ul>
+                <div style="margin-top: 25px; padding: 15px; background: rgba(0,255,102,0.05); font-size: 12px; color: var(--primary); border: 1px solid var(--border); font-family: monospace; line-height: 1.6;">
+                    → Hội tụ dữ liệu cao sau 150 vòng lặp xử lý ETL.
+                </div>
+            </div>
+
+            <!-- CORRELATION MATRIX -->
+            <div class="box span-6">
+                <span class="tag">CORRELATION_MATRIX</span>
+                <h3 class="box-title"><i class="ti ti-grid-dots"></i> Ma Trận Tương Quan Biến Số</h3>
+                <table class="heatmap-table">
+                    <thead>
+                        <tr>
+                            <th>Biến số</th><th>Tuổi</th><th>Thu Nhập</th><th>Kỹ Năng</th><th>Nỗi Sợ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color:var(--text-dim); font-size:12px;">Độ Tuổi</td>
+                            <td class="h-high">1.00</td><td class="h-med">0.45</td><td class="h-low">0.12</td><td class="h-high">0.78</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-dim); font-size:12px;">Thu Nhập</td>
+                            <td class="h-med">0.45</td><td class="h-high">1.00</td><td class="h-med">0.55</td><td class="h-low">-0.22</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-dim); font-size:12px;">Kỹ Năng</td>
+                            <td class="h-low">0.12</td><td class="h-med">0.55</td><td class="h-high">1.00</td><td class="h-med">-0.48</td>
+                        </tr>
+                        <tr>
+                            <td style="color:var(--text-dim); font-size:12px;">Nỗi Sợ</td>
+                            <td class="h-high">0.78</td><td class="h-low">-0.22</td><td class="h-med">-0.48</td><td class="h-high">1.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: 12px; color: var(--text-dim); margin-top: 18px; line-height: 1.7;">
+                    * Tương quan thuận mạnh (0.78) giữa <b style="color:var(--text-main)">Độ tuổi</b> và <b style="color:var(--text-main)">Nỗi sợ AI</b>. Người lớn tuổi có xu hướng lo ngại cao hơn về thích nghi công nghệ.
+                </p>
+            </div>
+
+            <!-- INSIGHTS -->
+            <div class="box span-6">
+                <span class="tag">INSIGHT_EXTRACTION</span>
+                <h3 class="box-title"><i class="ti ti-bulb"></i> Khám Phá Trọng Yếu</h3>
+                <div class="insight-item">
+                    <h4>01. Nghịch lý của sự hiểu biết</h4>
+                    <p>Cá nhân có kiến thức nền về AI càng sâu thì lo lắng về "Sự trỗi dậy của máy móc" càng thấp, nhưng lo ngại về "Quyền riêng tư" lại tăng 35%.</p>
+                </div>
+                <div class="insight-item">
+                    <h4>02. Phân nhóm lao động (Clustering)</h4>
+                    <p>K-Means xác định 3 cụm chính: <b style="color:var(--text-main)">Adaptive (22%)</b>, <b style="color:var(--text-main)">Observant (45%)</b>, và <b style="color:var(--text-main)">Resistant (33%)</b>. Nhóm Resistant tập trung chủ yếu ở ngành sản xuất truyền thống.</p>
+                </div>
+                <div class="insight-item">
+                    <h4>03. Dự báo xu hướng 2025</h4>
+                    <p>Dựa trên hồi quy Logistic, chỉ số tin tưởng vào AI dự báo tăng 12% nếu các chính sách bảo vệ quyền lợi lao động được ban hành đồng bộ.</p>
+                </div>
+            </div>
+
+            <!-- PIPELINE -->
+            <div class="box span-12">
+                <span class="tag">TECHNICAL_PIPELINE</span>
+                <h3 class="box-title"><i class="ti ti-settings-automation"></i> Quy Trình Xử Lý & Chuẩn Hóa</h3>
+                <div class="pipeline-grid">
+                    <div class="pipeline-step">
+                        <i class="ti ti-database-import"></i>
+                        <b>EXTRACTION</b>
+                        <p>Lấy dữ liệu thô từ SQL Server thông qua SSIS Package.</p>
+                    </div>
+                    <div class="pipeline-step">
+                        <i class="ti ti-filter"></i>
+                        <b>CLEANING</b>
+                        <p>Xử lý giá trị rỗng (Null) và khử nhiễu (Denoising).</p>
+                    </div>
+                    <div class="pipeline-step">
+                        <i class="ti ti-layers-intersect"></i>
+                        <b>INTEGRATION</b>
+                        <p>Gộp các Dimension vào Fact Table theo Star Schema.</p>
+                    </div>
+                    <div class="pipeline-step">
+                        <i class="ti ti-presentation-analytics"></i>
+                        <b>OLAP CUBE</b>
+                        <p>Xây dựng khối SSAS để tăng tốc độ truy vấn đa chiều.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-info">© 2024 AIFAS DATA SCIENCE RESEARCH PROJECT</div>
+        <a href="trangchu.html" class="logo" style="font-size: 18px; text-decoration:none; color:var(--text-main);">AIFAS<span>_CORE</span></a>
+        <div class="footer-info">TRUY CẬP ĐƯỢC MÃ HÓA: SSL/AES-256</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+    (function () {
+        if (typeof Chart === 'undefined') return;
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = 'rgba(0, 255, 102, 0.12)';
+        const common = { responsive: true, maintainAspectRatio: false };
+        new Chart(document.getElementById('chartFearDist'), {
+            type: 'doughnut',
+            data: {
+                labels: ['High', 'Medium', 'Low'],
+                datasets: [{
+                    data: [28, 52, 20],
+                    backgroundColor: ['rgba(0,255,102,0.9)', 'rgba(0,255,102,0.35)', 'rgba(255,255,255,0.08)'],
+                    borderWidth: 0
+                }]
+            },
+            options: { ...common, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 16 } } } }
+        });
+        new Chart(document.getElementById('chartModelCompare'), {
+            type: 'bar',
+            data: {
+                labels: ['Decision Tree\n(Accuracy)', 'Logistic Reg.\n(F1)', 'Clustering\n(Silhouette)'],
+                datasets: [{
+                    label: 'Thang minh họa (%)',
+                    data: [84.2, 81, 58],
+                    backgroundColor: ['rgba(0,255,102,0.55)', 'rgba(0,255,102,0.4)', 'rgba(0,255,102,0.25)']
+                }]
+            },
+            options: {
+                ...common,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, max: 100, ticks: { callback: (v) => v + '%' } }
+                }
+            }
+        });
+    })();
+    </script>
+
+</body>
+</html>

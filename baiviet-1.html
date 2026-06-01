@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIFAS | Giải mã nỗi sợ AI và bản sắc</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00ff66; --bg: #050505; --border: rgba(0,255,102,0.12); --text-main: #e2e8f0; --text-dim: #94a3b8; --font-accent: 'Syne',sans-serif; --font-main: 'Be Vietnam Pro',sans-serif; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background: var(--bg); color: var(--text-main); font-family: var(--font-main);
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 40px 40px; }
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: var(--font-accent); font-size: 26px; font-weight: 800; letter-spacing: -1.5px; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; height: 100%; }
+        .nav-links li { height: 100%; border-left: 1px solid var(--border); }
+        .nav-links a {
+            text-decoration: none; color: #fff; font-size: 12px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding: 0 30px; height: 100%; display: flex; align-items: center;
+            transition: 0.4s; opacity: 0.5;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            opacity: 1; background: rgba(0, 255, 102, 0.08); color: var(--primary);
+        }
+        .wrap { max-width: 760px; margin: 0 auto; padding: 120px 6% 100px; }
+        .back { display:inline-flex; align-items:center; gap:8px; color:var(--primary); text-decoration:none; font-size:12px; letter-spacing:2px; text-transform:uppercase; margin-bottom:36px; }
+        .tag { font-family:monospace; color:var(--primary); font-size:11px; letter-spacing:3px; margin-bottom:16px; display:block; }
+        h1 { font-family:var(--font-accent); font-size:clamp(1.6rem,4vw,2.4rem); text-transform:uppercase; line-height:1.15; margin-bottom:20px; }
+        .meta { font-size:13px; color:var(--text-dim); margin-bottom:40px; }
+        .prose h2 { font-family:var(--font-accent); font-size:1.1rem; margin: 36px 0 14px; color: var(--primary); text-transform:uppercase; letter-spacing:1px; }
+        .prose p { font-size:15px; line-height:1.85; color:var(--text-dim); margin-bottom:18px; }
+        .prose ul { margin: 12px 0 18px 22px; color: var(--text-dim); line-height:1.8; font-size:15px; }
+        footer { padding:50px 6%; border-top:1px solid var(--border); font-size:11px; color:#666; letter-spacing:2px; text-align:center; }
+        @media (max-width: 1024px) {
+            nav { flex-wrap: wrap; height: auto; min-height: 72px; padding: 10px 4% 14px; gap: 8px; }
+            .nav-links { flex-wrap: wrap; width: 100%; justify-content: flex-start; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; height: auto; }
+            .nav-links li { height: auto; border-left: none; border-right: 1px solid var(--border); }
+            .nav-links li:first-child { border-left: 1px solid var(--border); }
+            .nav-links a { height: auto; padding: 10px 14px; font-size: 10px; letter-spacing: 1px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="trangchu.html" class="logo" style="text-decoration:none; color:inherit;">AIFAS<span>_SYSTEM</span></a>
+        <ul class="nav-links">
+            <li><a href="trangchu.html">01. Trang Chủ</a></li>
+            <li><a href="phantich.html">02. Phân Tích</a></li>
+            <li><a href="ungdung.html">03. Ứng Dụng</a></li>
+            <li><a href="baiviet.html" class="active">04. Bài Viết</a></li>
+            <li><a href="lienhe.html">05. Liên Hệ</a></li>
+        </ul>
+        <div style="font-family: monospace; font-size: 11px; color: var(--primary);">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--primary); border-radius:50%; margin-right:8px; box-shadow: 0 0 10px var(--primary);"></span>
+            SYSTEM_ACTIVE: v4.2.0
+        </div>
+    </nav>
+    <article class="wrap">
+        <a class="back" href="baiviet.html"><i class="ti ti-arrow-left"></i> Quay lại danh sách</a>
+        <span class="tag">[ NGHIÊN CỨU ĐỊNH TÍNH + ĐỊNH LƯỢNG ]</span>
+        <h1>Giải mã nỗi sợ AI: tại sao «mất bản sắc» lại ám ảnh hơn «mất việc»?</h1>
+        <p class="meta">Tác giả nhóm AIFAS · Cập nhật 2024 · Đọc ~14 phút</p>
+        <div class="prose">
+            <p>Trong khảo sát AIFAS, nhiều người trả lời mức <strong>Job Loss Fear</strong> trung bình nhưng lại ghi nhận <strong>Overall Fear Score</strong> cao. Phỏng vấn bổ sung cho thấy họ không chỉ sợ thất nghiệp mà sợ <em>trở thành người thừa trong chính công việc của mình</em>: quyết định bị thuật toán gợi ý, văn phong bị đồng nhất, và giá trị «nghề nghiệp như một phần bản thể» bị bào mòn. Ở góc độ khai phá dữ liệu, hiện tượng này tương ứng với <strong>phân tách lớp không tuyến tính</strong>: cùng một vùng giá trị trên thang «sợ mất việc» vẫn có thể dẫn tới các nhãn <code>Fear Level</code> khác nhau nếu các chiều <code>Social Impact Fear</code> và <code>Privacy Fear</code> đủ cao — điều mà mô hình cây quyết định thể hiện qua các nút phân nhánh sớm trên các biến tâm lý-xã hội hơn là trên biến thuần kinh tế.</p>
+            <h2>Khung phân tích định tính — định lượng</h2>
+            <p>Chúng tôi gom các câu trả lời mở theo chủ đề: (1) mất kiểm soát, (2) mất ý nghĩa công việc, (3) mất kết nối xã hội nơi làm việc. Ba chủ đề này tương quan mạnh với biến <strong>Social Impact Fear</strong> và <strong>Privacy Fear</strong> hơn là với thu nhập hay tuổi tác. Khi ghép với pipeline SSAS, các chủ đề định tính được «neo» vào các cột đo lường được trong <code>FactAIFear</code>, giúp giải thích vì sao <strong>hồi quy logistic</strong> trên tập AIFAS thường cho xác suất lớp <em>Medium</em> dày hơn so với giả định ban đầu: ranh giới giữa «lo vừa phải» và «lo sâu» trong thực tế chủ quan là mờ, phản ánh đúng bản chất thang đo Likert / thang 0–10 đã chuẩn hóa.</p>
+            <h2>Liên hệ với phân cụm và xác suất có điều kiện</h2>
+            <p>Mô hình <strong>Clustering</strong> trong cùng mining structure không dự báo trực tiếp <code>Fear Level</code> mà tìm <em>cấu trúc nhóm</em> trong không gian đặc trưng (tuổi, quen AI, các thang lo âu…). Người dùng thuộc «cụm 2» theo nhãn <code>Cluster()</code> có thể vẫn được phân lớp <em>High</em> hoặc <em>Low</em> bởi cây quyết định — hai kết quả không mâu thuẫn: một bên mô tả <strong>đồng dạng hành vi</strong>, một bên ước lượng <strong>xác suất biên có điều kiện</strong> của nhãn sợ hãi. Trong báo cáo học thuật, nên trình bày song song (i) xác suất <code>PredictProbability([Fear Level], 'High'|'Medium'|'Low')</code> và (ii) <code>ClusterProbability()</code> để phân biệt hai tầng diễn giải.</p>
+            <h2>Ý nghĩa đối với mô hình dự báo và thiết kế CSDL</h2>
+            <p>Khi xây dựng cây quyết định và hồi quy logistic, nếu chỉ dùng biến kinh tế (thu nhập, ngành) sẽ <strong>đánh giá thấp</strong> mức lo âu thực. Star schema của AIFAS tách riêng các chiều «bối cảnh» và «nỗi sợ chi tiết» chính để phản ánh đúng cấu trúc tâm lý này. Việc giữ <code>Overall Fear Score</code> như một biến độc lập (trung bình bốn thang lo âu cụ thể) trong một số mô hình nhưng không đưa vào cây quyết định phiên bản triển khai hiện tại cũng là quyết định kỹ thuật nhằm tránh <em>rò rỉ thông tin</em> (data leakage) nếu tổng điểm được tính lại khác với quy trình khảo sát gốc.</p>
+            <ul>
+                <li>Khuyến nghị chính sách: đào tạo kỹ năng cần đi đôi với quy tắc minh bạch khi dùng AI trong đánh giá nhân sự.</li>
+                <li>Khuyến nghị kỹ thuật: giữ các cột tự báo cáo lo âu đa chiều thay vì gom một điểm số duy nhất quá sớm trong ETL; luôn lưu ma trận nhầm lẫn và đường cong calibration khi trình bày xác suất.</li>
+            </ul>
+            <h2>Kết luận</h2>
+            <p>«Mất bản sắc» là khái niệm tổng hợp từ nỗi sợ mất quyền quyết định và mất ý nghĩa — và đó là lý do nó xuất hiện mạnh trong dữ liệu AIFAS ngay cả khi chỉ số sợ mất việc không cực đoan. Đối với ứng dụng Web, điều này nhắc người đọc kết quả: khi hai mô hình phân lớp cho nhãn khác nhau, cần ưu tiên đọc <strong>phân bổ xác suất đầy đủ</strong> thay vì một nhãn điểm duy nhất.</p>
+        </div>
+    </article>
+    <footer>© AIFAS RESEARCH · Bài viết trong khuôn khổ đồ án chuyên đề CSDL</footer>
+</body>
+</html>

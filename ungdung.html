@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIFAS | AI INTERACTIVE INTERFACE</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ff66; 
+            --bg: #050505;
+            --border: rgba(0, 255, 102, 0.12);
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --font-accent: 'Syne', sans-serif;
+            --font-main: 'Be Vietnam Pro', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-family: var(--font-accent); font-size: 26px; font-weight: 800; letter-spacing: -1.5px; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; list-style: none; height: 100%; }
+        .nav-links li { height: 100%; border-left: 1px solid var(--border); }
+        .nav-links a {
+            text-decoration: none; color: #fff; font-size: 12px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding: 0 30px; height: 100%; display: flex; align-items: center;
+            transition: 0.4s; opacity: 0.5;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            opacity: 1; background: rgba(0, 255, 102, 0.08); color: var(--primary);
+        }
+
+        .container { padding: 140px 8% 80px; max-width: 1400px; margin: 0 auto; }
+
+        /* --- INTERFACE LAYOUT --- */
+        .app-grid { display: grid; grid-template-columns: 1fr 380px; gap: 40px; }
+
+        .main-app { 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid var(--border); 
+            padding: 50px;
+            position: relative;
+        }
+
+        .tag { font-family: monospace; color: var(--primary); font-size: 11px; letter-spacing: 3px; display: block; margin-bottom: 20px; }
+        h1 { font-family: var(--font-accent); font-size: 40px; text-transform: uppercase; margin-bottom: 40px; }
+
+        /* --- FORM ELEMENTS --- */
+        .input-group { margin-bottom: 35px; }
+        label { display: block; font-size: 11px; text-transform: uppercase; color: var(--primary); letter-spacing: 2px; margin-bottom: 15px; }
+        
+        select, input:not([type="range"]) {
+            width: 100%; background: #0a0a0a; border: 1px solid var(--border);
+            padding: 18px; color: #fff; font-family: var(--font-main);
+            font-size: 15px; transition: 0.3s;
+        }
+        select:focus, input:not([type="range"]):focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px rgba(0, 255, 102, 0.1); }
+
+        /* Thanh trượt 0–10: full track, nút kéo tới được 0 và 10 */
+        input[type="range"] {
+            width: 100%;
+            min-width: 0;
+            height: 36px;
+            margin: 6px 0 4px;
+            background: transparent;
+            accent-color: var(--primary);
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 4px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            margin-top: -6px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 14px rgba(0, 255, 102, 0.55);
+            border: 2px solid #050505;
+        }
+        input[type="range"]::-moz-range-track {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 4px;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid #050505;
+            box-shadow: 0 0 14px rgba(0, 255, 102, 0.55);
+        }
+
+        .btn-predict {
+            width: 100%; background: var(--primary); color: #000;
+            border: none; padding: 22px; font-family: var(--font-accent);
+            font-weight: 800; font-size: 16px; text-transform: uppercase;
+            cursor: pointer; transition: 0.4s; margin-top: 20px;
+        }
+        .btn-predict:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 255, 102, 0.2); }
+
+        /* --- SIDEBAR PANEL --- */
+        .side-panel { display: flex; flex-direction: column; gap: 25px; }
+        
+        .info-box { 
+            background: #0a0a0a; border: 1px solid var(--border); padding: 30px; 
+            border-left: 3px solid var(--primary);
+        }
+        .info-box h4 { font-family: var(--font-accent); font-size: 16px; margin-bottom: 15px; text-transform: uppercase; }
+        .info-box p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+        /* --- RESULT MODAL (HIDDEN BY DEFAULT) --- */
+        .prediction-result {
+            margin-top: 50px; padding: 40px; border: 1px solid var(--primary);
+            background: rgba(0, 255, 102, 0.05); display: none;
+        }
+        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .accuracy-badge { font-family: monospace; font-size: 11px; padding: 5px 12px; border: 1px solid var(--primary); color: var(--primary); }
+
+        /* Tiến độ phiên (một thanh liền — không phải thang chấm điểm) */
+        .workflow-hint {
+            margin-bottom: 44px;
+            padding: 22px 24px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .workflow-caption {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+        .workflow-caption strong { color: var(--text-main); }
+        .workflow-track {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .workflow-fill {
+            height: 100%;
+            width: 33%;
+            background: linear-gradient(90deg, rgba(0, 255, 102, 0.45), var(--primary));
+            border-radius: 4px;
+            transition: width 0.45s ease;
+        }
+        .workflow-steps-text {
+            margin-top: 12px;
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--primary);
+            letter-spacing: 0.06em;
+        }
+
+        footer { padding: 60px 8%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 11px; letter-spacing: 2px; }
+
+        @media (max-width: 1024px) {
+            .app-grid { grid-template-columns: 1fr; }
+            nav { flex-wrap: wrap; height: auto; min-height: 72px; padding: 10px 4% 14px; gap: 8px; }
+            .nav-links { flex-wrap: wrap; width: 100%; justify-content: flex-start; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; }
+            .nav-links li { border-left: none; border-right: 1px solid var(--border); }
+            .nav-links li:first-child { border-left: 1px solid var(--border); }
+            .nav-links a { padding: 10px 14px; font-size: 10px; letter-spacing: 1px; }
+        }
+
+        .lead { color: var(--text-dim); max-width: 680px; line-height: 1.85; font-size: 15px; font-weight: 300; }
+        .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 24px; }
+        .model-card { padding: 24px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); }
+        .model-card h4 { font-size: 11px; letter-spacing: 2px; color: var(--primary); margin-bottom: 16px; text-transform: uppercase; }
+        .pred-main { font-family: var(--font-accent); font-size: 22px; color: #fff; margin: 8px 0 14px; letter-spacing: -0.5px; }
+        .cluster-code {
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--primary);
+            letter-spacing: 0.06em;
+            margin: 4px 0 12px;
+            opacity: 0.95;
+        }
+        .pred-sub { font-size: 12px; color: var(--text-dim); line-height: 1.6; margin-bottom: 14px; }
+        .probs { font-family: monospace; font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+        .probs b { color: var(--text-main); }
+        .prob-bars { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .prob-row { display: grid; grid-template-columns: 64px 1fr 44px; align-items: center; gap: 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
+        .prob-track { height: 7px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+        .prob-fill { height: 100%; background: linear-gradient(90deg, rgba(0,255,102,0.5), var(--primary)); border-radius: 4px; transition: width 0.45s ease; }
+        .result-summary { padding: 22px 26px; margin-bottom: 26px; border: 1px solid var(--border); background: rgba(0,255,102,0.04); font-size: 14px; line-height: 1.75; color: var(--text-dim); }
+        .result-summary strong { color: var(--text-main); }
+        .err { margin-top: 20px; padding: 18px; border: 1px solid #f87171; color: #fecaca; font-size: 13px; display: none; line-height: 1.6; }
+        small.hint { display: block; margin-top: 10px; font-size: 11px; color: var(--text-dim); line-height: 1.55; opacity: 0.85; }
+        .range-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); margin-top: 8px; }
+        .recap-details { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .recap-details summary { cursor: pointer; color: var(--text-dim); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+        .recap-details summary:hover { color: var(--primary); }
+        .recap-details .inner { margin-top: 14px; font-size: 12px; color: var(--text-dim); line-height: 1.65; }
+        .result-body { display: grid; grid-template-columns: 1fr minmax(300px, 380px); gap: 28px; align-items: start; margin-top: 8px; }
+        .explain-panel {
+            border: 1px solid var(--border); background: rgba(255,255,255,0.02);
+            padding: 26px 24px; font-size: 13px; color: var(--text-dim); line-height: 1.75;
+        }
+        .explain-panel h4 { font-family: var(--font-accent); font-size: 12px; letter-spacing: 2px; color: var(--primary); margin-bottom: 16px; text-transform: uppercase; }
+        .explain-panel h5 { font-size: 12px; color: var(--text-main); margin: 18px 0 8px; font-weight: 600; }
+        .explain-panel ul { margin: 0 0 0 18px; }
+        .explain-panel li { margin-bottom: 6px; }
+        @media (max-width: 1100px) { .result-body { grid-template-columns: 1fr; } }
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-top: 12px; }
+        .details-grid div strong { display: block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); margin-bottom: 6px; }
+        .details-grid div { color: var(--text-main); font-size: 13px; }
+
+        /* Chú giải phân cụm (bảng tra cứu) */
+        .cluster-legend-wrap {
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+            scroll-margin-top: 100px;
+        }
+        .cluster-legend-wrap > h4 {
+            font-family: var(--font-accent);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .cluster-legend-wrap .legend-lead {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.85;
+            margin-bottom: 20px;
+        }
+        .cluster-legend-wrap .legend-note {
+            font-size: 11px;
+            color: var(--text-dim);
+            line-height: 1.65;
+            margin: 16px 0 12px;
+            padding: 12px 14px;
+            border: 1px dashed rgba(0, 255, 102, 0.25);
+            background: rgba(0, 0, 0, 0.35);
+        }
+        .cluster-table-wrap { overflow-x: auto; margin-bottom: 22px; }
+        .cluster-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 520px;
+        }
+        .cluster-table caption {
+            text-align: left;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--primary);
+            padding-bottom: 10px;
+        }
+        .cluster-table th,
+        .cluster-table td {
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+            vertical-align: top;
+            line-height: 1.55;
+        }
+        .cluster-table th {
+            background: rgba(0, 255, 102, 0.06);
+            color: var(--text-main);
+            font-weight: 600;
+            text-align: left;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .cluster-table td { color: var(--text-dim); }
+        .cluster-table td:first-child {
+            font-family: monospace;
+            color: var(--primary);
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .cluster-table .tag-demo { color: #94a3b8; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="trangchu.html" class="logo" style="text-decoration:none; color:inherit;">AIFAS<span>_SYSTEM</span></a>
+        <ul class="nav-links">
+            <li><a href="trangchu.html">01. Trang Chủ</a></li>
+            <li><a href="phantich.html">02. Phân Tích</a></li>
+            <li><a href="ungdung.html" class="active">03. Ứng Dụng</a></li>
+            <li><a href="baiviet.html">04. Bài Viết</a></li>
+            <li><a href="lienhe.html">05. Liên Hệ</a></li>
+        </ul>
+        <div style="font-family: monospace; font-size: 11px; color: var(--primary);">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--primary); border-radius:50%; margin-right:8px; box-shadow: 0 0 10px var(--primary);"></span>
+            SYSTEM_ACTIVE: v4.2.0
+        </div>
+    </nav>
+
+    <div class="container">
+        <header style="margin-bottom: 60px;">
+            <span class="tag">[ MODULE / DỰ BÁO HÀNH VI ]</span>
+            <h1>ỨNG DỤNG <span>DỰ BÁO TÂM LÝ</span></h1>
+            <p class="lead">Đánh giá nhanh xu hướng lo âu liên quan đến AI dựa trên hồ sơ nhân khẩu và mức tự báo cáo các chiều nỗi sợ. Hệ thống tổng hợp kết quả từ <strong>hai mô hình phân loại</strong> (cây quyết định, hồi quy logistic) và <strong>một mô hình gom cụm</strong> để bạn đối chiếu nhãn dự báo với phân khúc tương đồng trong dữ liệu nghiên cứu.</p>
+        </header>
+
+        <div class="app-grid">
+            <main class="main-app">
+                <div class="workflow-hint" role="region" aria-label="Hướng dẫn luồng làm việc">
+                    <p class="workflow-caption">
+                        <strong>Thanh xanh liền phía dưới</strong> chỉ là <em>tiến độ phiên làm việc</em> (điền form → chạy phân tích → có kết quả), <strong>không phải</strong> thang chấm điểm và không dùng để nhập liệu.
+                        Các <strong>thanh trượt có nhãn 0–10</strong> ở phần sau mới là thang tự đánh giá mức lo âu: kéo nút tròn tới sát mé trái = 0, mé phải = 10.
+                    </p>
+                    <div class="workflow-track" aria-hidden="true">
+                        <div class="workflow-fill" id="workflowFill"></div>
+                    </div>
+                    <div class="workflow-steps-text"><span id="workflowStepLabel">Bước 1 — Điền biểu mẫu</span></div>
+                </div>
+
+                <form id="predictionForm" onsubmit="return false;">
+                    <div class="input-group">
+                        <label>Giới tính (Gender)</label>
+                        <select id="gender" name="gender" required>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Lĩnh vực nghề nghiệp</label>
+                        <select id="occupation" required>
+                            <option value="">Chọn...</option>
+                            <option value="Office Administration">Nhân viên Văn phòng / Hành chính</option>
+                            <option value="Arts and Design">Sáng tạo nghệ thuật / Thiết kế</option>
+                            <option value="Technology">Kỹ thuật / Công nghệ thông tin</option>
+                            <option value="Healthcare">Y tế / Chăm sóc sức khỏe</option>
+                            <option value="Manufacturing">Sản xuất / Công nghiệp</option>
+                            <option value="Education">Giáo dục / Đào tạo</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Tuổi đại diện (Age)</label>
+                        <select id="age" required>
+                            <option value="22">18 - 24</option>
+                            <option value="30">25 - 34</option>
+                            <option value="40">35 - 44</option>
+                            <option value="50">45 - 54</option>
+                            <option value="58">Trên 55</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Học vấn (Education)</label>
+                        <select id="education" required>
+                            <option value="High School">Trung học / Phổ thông</option>
+                            <option value="Bachelor">Đại học (Cử nhân)</option>
+                            <option value="Postgraduate">Sau Đại học</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Mức quen thuộc với AI (AI Familiarity)</label>
+                        <select id="aiFam" required>
+                            <option value="Low">Thấp</option>
+                            <option value="Medium" selected>Trung bình</option>
+                            <option value="High">Cao</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Tần suất tiếp xúc với AI</label>
+                        <select id="aiUsage" required>
+                            <option value="Rarely">Hiếm khi</option>
+                            <option value="Sometimes" selected>Thỉnh thoảng</option>
+                            <option value="Often">Thường xuyên</option>
+                            <option value="Daily">Hàng ngày</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Quốc gia (Country)</label>
+                        <select id="country" required>
+                            <option value="Vietnam">Việt Nam</option>
+                            <option value="United States">Hoa Kỳ</option>
+                            <option value="India">Ấn Độ</option>
+                            <option value="United Kingdom">Anh</option>
+                            <option value="Singapore">Singapore</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Thu nhập (Income Level)</label>
+                        <select id="income" required>
+                            <option value="Low">Thấp</option>
+                            <option value="Middle" selected>Trung bình</option>
+                            <option value="High">Cao</option>
+                        </select>
+                    </div>
+
+                    <p class="hint" style="margin: -10px 0 28px; max-width: 640px;">Các lựa chọn phân loại (nghề, học vấn, tần suất…) nên thống nhất với bảng dữ liệu huấn luyện của nhóm để kết quả phản ánh đúng mô hình.</p>
+
+                    <div class="input-group">
+                        <label>Mức lo âu mất việc (thang 0–10)</label>
+                        <input type="range" id="fJob" min="0" max="10" step="0.5" value="5">
+                        <div class="range-row"><span>0</span><span id="fJobV">5</span><span>10</span></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Lo âu riêng tư (0–10)</label>
+                        <input type="range" id="fPriv" min="0" max="10" step="0.5" value="5">
+                        <div class="range-row"><span>0</span><span id="fPrivV">5</span><span>10</span></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Lo âu an toàn (0–10)</label>
+                        <input type="range" id="fSafe" min="0" max="10" step="0.5" value="5">
+                        <div class="range-row"><span>0</span><span id="fSafeV">5</span><span>10</span></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Lo âu tác động xã hội (0–10)</label>
+                        <input type="range" id="fSoc" min="0" max="10" step="0.5" value="5">
+                        <div class="range-row"><span>0</span><span id="fSocV">5</span><span>10</span></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Tổng chỉ số lo âu (trung bình bốn thang trên)</label>
+                        <input type="text" id="overall" readonly style="opacity:0.9;">
+                    </div>
+
+                    <button type="button" class="btn-predict" id="btnPredict">
+                        Chạy phân tích dự báo
+                    </button>
+                </form>
+
+                <div id="errBox" class="err"></div>
+
+                <div id="result" class="prediction-result">
+                    <div class="result-header">
+                        <h3 style="font-family: var(--font-accent); color: var(--primary);">BẢNG KẾT QUẢ PHÂN TÍCH</h3>
+                        <span class="accuracy-badge" id="badgeTime">—</span>
+                    </div>
+                    <div id="resultSummary" class="result-summary" style="display:none;"></div>
+                    <div class="result-body">
+                        <div class="model-grid">
+                            <div class="model-card">
+                                <h4>1. Cây quyết định</h4>
+                                <div id="dtMain"></div>
+                                <div id="dtProbs" class="probs"></div>
+                            </div>
+                            <div class="model-card">
+                                <h4>2. Hồi quy logistic</h4>
+                                <div id="lrMain"></div>
+                                <div id="lrProbs" class="probs"></div>
+                            </div>
+                            <div class="model-card">
+                                <h4>3. Phân cụm</h4>
+                                <div id="clMain"></div>
+                                <div id="clProbs" class="probs"></div>
+                            </div>
+                        </div>
+                        <aside id="resultExplain" class="explain-panel" aria-live="polite">
+                            <h4>Giải thích cho người dùng</h4>
+                            <p>Sau khi chạy phân tích, tại đây sẽ hiển thị cách đọc kết quả và ý nghĩa từng mô hình theo đúng hồ sơ bạn vừa nhập.</p>
+                        </aside>
+                    </div>
+
+                    <div id="clusterLegend" class="cluster-legend-wrap">
+                        <h4><i class="ti ti-layout-grid"></i> Chú giải phân cụm (Cluster)</h4>
+                        <p class="legend-lead">
+                            SSAS trả về <strong>mã cụm dạng số</strong> (Cụm 1, 2, 3…) và <strong>độ phù hợp cụm</strong> — đó là kết quả của thuật toán gom nhóm trên <em>toàn bộ tập huấn luyện</em>, không phải cùng một thang với High/Medium/Low của hai mô hình phía trên.
+                            Số thứ tự <strong>không</strong> mang nghĩa «cụm 1 tốt hơn cụm 2»; chỉ là nhãn nội bộ do Microsoft Clustering gán.
+                        </p>
+                        <p class="legend-lead" style="margin-top:-8px;">
+                            <strong>Sơ đồ Dependency Network</strong> (ví dụ ảnh nhóm gửi — 10 cụm): các <strong>đường nối</strong> cho biết hai cụm <em>giống / gần nhau</em> trên thống kê (đường dày = liên kết mạnh). Trên sơ đồ đó, <strong>Cụm 9</strong> thường nằm giữa và nối tới nhiều cụm khác (vai trò «hub»); các cụm <strong>10–7–8–2</strong> tạo khối liên kết chặt phía trên–trái; <strong>1–3</strong> liên kết chặt ở dưới; <strong>4–5–6</strong> tụ về phía phải — đây vẫn chỉ là <em>cấu trúc tương đồng giữa cụm</em>, <strong>chưa</strong> cho biết «nhóm người là ai» (tuổi, nghề, mức lo…). Muốn đặt tên đúng nghĩa hành vi, bắt buộc mở thêm tab <strong>Cluster Profiles / Cluster Characteristics</strong> trong Mining Model Viewer.
+                        </p>
+
+                        <div class="cluster-table-wrap">
+                            <table class="cluster-table" aria-describedby="cluster-tech-cap">
+                                <caption id="cluster-tech-cap">Bảng 1 — Thuật ngữ trên màn hình</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Thành phần hiển thị</th>
+                                        <th>Ý nghĩa (đọc như nhà phân tích)</th>
+                                        <th>Không nên hiểu nhầm là</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cụm <em>n</em></td>
+                                        <td>Bạn gần với <strong>phân khúc hành vi thứ n</strong> mà mô hình tìm được trong dữ liệu khảo sát (cùng không gian đặc trưng: tuổi, nghề, mức lo cụ thể, quen AI…).</td>
+                                        <td>Thứ hạng ưu tiên; hay «mức độ sợ = n».</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Độ phù hợp cụm (%)</td>
+                                        <td>Giá trị từ <code>ClusterProbability()</code>: mức tin rằng điểm dữ liệu (hồ sơ) thuộc <strong>đúng cụm đang hiển thị</strong>.</td>
+                                        <td>Xác suất High/Medium/Low; hay «độ chính xác tổng» của toàn hệ thống.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>So với cây / logistic</td>
+                                        <td>Hai mô hình kia dự báo nhãn <strong>Fear Level</strong> (ba lớp). Phân cụm chỉ nói <strong>bạn giống nhóm ai</strong> trong dữ liệu.</td>
+                                        <td>Hai loại kết quả phải trùng nhau mới đúng — có thể khác nhau và vẫn hợp lý.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="legend-note">
+                            <strong>Tên nhóm trên Web:</strong> đọc từ bảng ánh xạ <code>CLUSTER_HUMAN_NAMES</code> trong file <code>ungdung.html</code> (cùng với thẻ kết quả). Sau khi nhóm đối chiếu <em>Mining Model Viewer → Cluster Profiles / Characteristics</em> trên SSAS, hãy <strong>sửa lại từng tên</strong> cho khớp nghĩa thực của từng mã cụm trong deployment của bạn (thứ tự mã có thể đổi khi train lại). Cột «Đặc trưng…» trong bảng 2 vẫn nên cập nhật theo profile thực từ SSAS.
+                        </p>
+
+                        <div class="cluster-table-wrap">
+                            <table class="cluster-table" aria-label="Bảng chú giải minh họa theo cụm">
+                                <caption>Bảng 2 — Mã cụm và <strong>tên nhóm cụ thể</strong> (đồng bộ với kết quả Web) <span class="tag-demo">(chỉnh trong code sau SSAS)</span></caption>
+                                <thead>
+                                    <tr>
+                                        <th>Mã SSAS</th>
+                                        <th>Tên nhóm (hiển thị cho người xem)</th>
+                                        <th>Đặc trưng thường đọc được trên dữ liệu kiểu AIFAS</th>
+                                        <th>Gợi ý khi trình bày</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cụm 1</td>
+                                        <td><strong>Nhóm thích ứng công nghệ</strong></td>
+                                        <td>Thường: <strong>AI Familiarity</strong> cao hoặc trung; các thang lo âu cụ thể tương đối cân bằng; <strong>Job Loss Fear</strong> không phải lúc nào cũng cực đoan.</td>
+                                        <td>Nhấn mạnh: quen công cụ AI nhưng vẫn cần chính sách minh bạch dữ liệu — đừng giảm xuống «không lo gì».</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cụm 2</td>
+                                        <td><strong>Nhóm quan sát – thận trọng</strong></td>
+                                        <td>Thường: nhiều chỉ số ở mức trung; hay xuất hiện cùng <strong>Privacy Fear</strong> hoặc <strong>Social Impact Fear</strong> đáng kể.</td>
+                                        <td>Phù hợp kịch bản đào tạo + quy trình con người trong vòng khi triển khai AI.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cụm 3</td>
+                                        <td><strong>Nhóm phòng thủ / dè chừng</strong></td>
+                                        <td>Thường: <strong>AI Familiarity</strong> thấp hơn hoặc ngữ cảnh nghề ít tiếp xúc AI; <strong>Job Loss Fear</strong> hoặc lo an toàn có thể nổi bật.</td>
+                                        <td>Thích hợp thảo luận chuyển đổi nghề, an toàn vận hành, kỹ năng bổ sung.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cụm 4</td>
+                                        <td><strong>Nhóm biên (ít gặp)</strong></td>
+                                        <td>Thường là cụm nhỏ hoặc đặc trưng hỗn hợp — <strong>bắt buộc</strong> xem profile thực trên SSAS.</td>
+                                        <td>Trình bày như phân khúc hiếm; tránh suy diễn sâu khi cỡ mẫu trong cụm nhỏ.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cụm 5+</td>
+                                        <td><strong>Nhóm bổ sung (K lớn)</strong> / tên tạm theo mã</td>
+                                        <td>Số cụm K do tham số huấn luyện quyết định; mã số có thể đổi khi train lại.</td>
+                                        <td>Trong báo cáo: luôn ghi rõ phiên bản mô hình và ngày deploy; đặt tên riêng cho từng mã sau khi đọc profile.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="inputRecap" style="display:none;"></div>
+                </div>
+            </main>
+
+            <aside class="side-panel">
+                <div class="info-box">
+                    <h4><i class="ti ti-binary"></i> Nền tảng phân tích</h4>
+                    <p>Kết quả được tính toán trên máy chủ phân tích nội bộ (SQL Server Analysis Services), phản ánh mô hình mà nhóm đã huấn luyện trên bộ dữ liệu khảo sát AIFAS.</p>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="ti ti-shield-lock"></i> Phạm vi xử lý</h4>
+                    <p>Phiên làm việc chỉ gửi tham số tới hệ thống trong mạng nội bộ của bạn; không chuyển dữ liệu ra bên thứ ba.</p>
+                </div>
+
+                <div class="info-box" style="border-color: #555;">
+                    <span class="tag">NHẬT KÝ PHIÊN</span>
+                    <div id="syslog" style="font-family: monospace; font-size: 10px; color: #666; line-height: 1.5;">
+                        &gt; Awaiting request…
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <div>© 2024 AIFAS — Nghiên cứu hành vi &amp; dữ liệu</div>
+        <div style="color: var(--primary); letter-spacing: 0.12em;">AIFAS.RESEARCH</div>
+    </footer>
+
+    <script>
+        const $ = (id) => document.getElementById(id);
+
+        /** Ánh xạ mã cụm SSAS (số) → tên hiển thị. Sửa cho khớp Cluster Profile sau khi train/deploy. */
+        const CLUSTER_HUMAN_NAMES = {
+            '1': 'Nhóm thích ứng công nghệ',
+            '2': 'Nhóm quan sát – thận trọng',
+            '3': 'Nhóm phòng thủ / dè chừng',
+            '4': 'Nhóm biên (ít gặp)',
+            '5': 'Nhóm bổ sung (K ≥ 5)',
+            '6': 'Nhóm 6 (khối phải trên sơ đồ)',
+            '7': 'Nhóm 7 (khối trên–trái với 8–10–2)',
+            '8': 'Nhóm 8 (khối trên–trái với 7–10–2)',
+            '9': 'Nhóm trung tâm liên kết (hub)',
+            '10': 'Nhóm 10 (khối trên–trái với 7–8–2)'
+        };
+
+        function clusterIdDigits(raw) {
+            const d = String(raw ?? '').replace(/[^\d]/g, '');
+            return d || '?';
+        }
+
+        function clusterHumanName(idDigits) {
+            if (!idDigits || idDigits === '?') return 'Chưa xác định mã cụm';
+            return CLUSTER_HUMAN_NAMES[idDigits] || ('Nhóm phân cụm ' + idDigits + ' (thêm tên vào CLUSTER_HUMAN_NAMES sau SSAS)');
+        }
+
+        function bindRange(id, outId) {
+            const el = $(id);
+            const o = $(outId);
+            const upd = () => { o.textContent = el.value; refreshOverall(); };
+            el.addEventListener('input', upd);
+            upd();
+        }
+
+        function refreshOverall() {
+            const a = +$('fJob').value, b = +$('fPriv').value, c = +$('fSafe').value, d = +$('fSoc').value;
+            const m = (a + b + c + d) / 4;
+            $('overall').value = m.toFixed(2);
+        }
+
+        function log(msg) {
+            $('syslog').innerHTML = msg.split('\n').map((l) => '· ' + l).join('<br>');
+        }
+
+        function fmtProb(x) {
+            if (typeof x !== 'number' || Number.isNaN(x)) return '—';
+            return (x * 100).toFixed(1) + '%';
+        }
+
+        function maxProbLabel(data) {
+            const h = data.high ?? 0, m = data.medium ?? 0, l = data.low ?? 0;
+            if (h >= m && h >= l) return { label: 'High', v: h };
+            if (m >= l) return { label: 'Medium', v: m };
+            return { label: 'Low', v: l };
+        }
+
+        function probBars(data) {
+            const rows = [
+                ['High', data.high],
+                ['Medium', data.medium],
+                ['Low', data.low]
+            ];
+            return '<div class="prob-bars">' + rows.map(([name, v]) => {
+                const p = typeof v === 'number' && !Number.isNaN(v) ? Math.min(100, Math.max(0, v * 100)) : 0;
+                return '<div class="prob-row"><span>' + name + '</span><div class="prob-track"><div class="prob-fill" style="width:' + p + '%"></div></div><span>' + fmtProb(v) + '</span></div>';
+            }).join('') + '</div>';
+        }
+
+        function interpretFear(label) {
+            const u = (label || '').toString();
+            if (/high/i.test(u)) return 'Mức lo âu được mô hình xếp vào nhóm cao: cần chú ý tác động tâm lý và ngữ cảnh nghề nghiệp.';
+            if (/low/i.test(u)) return 'Mức lo âu được mô hình xếp vào nhóm thấp: tương đối ổn định trong khung dữ liệu huấn luyện.';
+            return 'Mức lo âu được mô hình xếp vào nhóm trung bình: nên đọc kèm xác suất chi tiết và phân cụm.';
+        }
+
+        function fillTreeCard(mainId, probsId, data) {
+            const best = maxProbLabel(data);
+            const label = data.predictedLabel ?? '—';
+            $(mainId).innerHTML =
+                '<div class="pred-main">' + label + '</div>' +
+                '<p class="pred-sub">' + interpretFear(label) + '</p>' +
+                '<p class="probs"><b>Xác suất dự báo của lớp cao nhất</b> (lớp <strong>' + best.label + '</strong>): <span style="color:var(--primary)">' + fmtProb(best.v) + '</span>. Đây là xác suất có điều kiện mà mô hình gán cho lớp đó trong {High, Medium, Low}; ba thanh ngay dưới là đủ ba xác suất.</p>';
+            $(probsId).innerHTML = '<p class="probs" style="margin-bottom:8px;"><b>Phân bổ xác suất</b> (High / Medium / Low)</p>' + probBars(data);
+        }
+
+        function fillClusterCard(mainId, probsId, c) {
+            const raw = (c.clusterLabel ?? '').toString();
+            const num = clusterIdDigits(raw);
+            const title = clusterHumanName(num);
+            $(mainId).innerHTML =
+                '<div class="pred-main" style="font-size:1.35rem;line-height:1.2;">' + title + '</div>' +
+                '<div class="cluster-code">Mã phân cụm SSAS: Cụm ' + num + '</div>' +
+                '<p class="pred-sub">Bạn gần với <strong>' + title + '</strong> trong tập huấn luyện (đây là <em>phân khúc hành vi</em>, không phải nhãn High/Medium/Low).</p>' +
+                '<p class="pred-sub" style="margin-top:-4px;font-size:11px;line-height:1.55;opacity:0.92;">Bảng đầy đủ mã ↔ tên: <a href="#clusterLegend" style="color:var(--primary);text-decoration:underline;text-underline-offset:3px;">Chú giải phân cụm</a>.</p>' +
+                '<p class="probs"><b>Độ phù hợp cụm</b>: <span style="color:var(--primary)">' + fmtProb(c.probability) + '</span></p>';
+            const p = typeof c.probability === 'number' ? Math.min(100, Math.max(0, c.probability * 100)) : 0;
+            $(probsId).innerHTML = '<p class="probs" style="margin-bottom:8px;"><b>Biểu diễn độ phù hợp</b></p><div class="prob-bars"><div class="prob-row"><span>Fit</span><div class="prob-track"><div class="prob-fill" style="width:' + p + '%"></div></div><span>' + fmtProb(c.probability) + '</span></div></div>';
+        }
+
+        function buildSummary(dt, lr, cl) {
+            const a = (dt.predictedLabel || '').toString();
+            const b = (lr.predictedLabel || '').toString();
+            let line = '';
+            if (a && b && a === b) {
+                line = 'Hai mô hình phân loại <strong>đồng thuận</strong> nhãn <strong>' + a + '</strong>. ';
+            } else {
+                line = 'Cây quyết định cho nhãn <strong>' + (a || '—') + '</strong>; hồi quy logistic cho nhãn <strong>' + (b || '—') + '</strong>. ';
+            }
+            const cr = (cl.clusterLabel || '—').toString();
+            const cid = clusterIdDigits(cl.clusterLabel);
+            const ctitle = clusterHumanName(cid);
+            line += 'Phân cụm: <strong>' + cr + '</strong> — <strong>' + ctitle + '</strong>, độ phù hợp ' + fmtProb(cl.probability) + '.';
+            $('resultSummary').innerHTML = line;
+            $('resultSummary').style.display = 'block';
+            const tbest = maxProbLabel(dt);
+            $('badgeTime').textContent = 'Cây QĐ: ' + fmtProb(tbest.v) + ' · ' + new Date().toLocaleTimeString('vi-VN');
+        }
+
+        function fillDetailedExplain(dt, lr, cl, payload) {
+            const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            const a = (dt.predictedLabel || '').toString();
+            const b = (lr.predictedLabel || '').toString();
+            const agree = a && b && a === b;
+            const th = maxProbLabel(dt);
+            const lh = maxProbLabel(lr);
+            const cr = (cl.clusterLabel || '—').toString();
+            const cid = clusterIdDigits(cl.clusterLabel);
+            const ctitle = clusterHumanName(cid);
+            let agreeNote = agree
+                ? 'Hai mô hình phân loại cùng chọn một nhãn, nên bạn có thể tin cậy hướng diễn giải chung hơn.'
+                : 'Hai mô hình phân loại khác nhau: cây quyết định thường «tách nhánh» theo luật if–then; hồi quy logistic mượt xác suất hơn. Hãy ưu tiên đọc phân bổ xác suất bên trái thay vì chỉ một nhãn.';
+
+            const html =
+                '<h4>Giải thích cho người dùng</h4>' +
+                '<p><strong>Nhãn Fear Level</strong> là mức lo âu tổng hợp (High / Medium / Low) mà mô hình gán cho hồ sơ có đặc điểm gần với dữ liệu bạn nhập. Đây là <em>kết quả thống kê</em>, không thay cho tư vấn tâm lý hay y khoa.</p>' +
+                '<h5>1. Cây quyết định</h5><ul>' +
+                '<li>Nhãn dự đoán: <strong>' + esc(a) + '</strong>; xác suất mạnh nhất ở nhãn <strong>' + esc(th.label) + '</strong> (' + fmtProb(th.v) + ').</li>' +
+                '<li>Ý nghĩa: mô hình so khớp hồ sơ của bạn với các nhánh quy tắc đã học từ dữ liệu khảo sát (tuổi, nghề, mức lo cụ thể…).</li></ul>' +
+                '<h5>2. Hồi quy logistic</h5><ul>' +
+                '<li>Nhãn dự đoán: <strong>' + esc(b) + '</strong>; xác suất mạnh nhất ở nhãn <strong>' + esc(lh.label) + '</strong> (' + fmtProb(lh.v) + ').</li>' +
+                '<li>Ý nghĩa: mô hình ước lượng xác suất có điều kiện; thường «mềm» hơn cây khi ranh giới giữa các lớp mờ.</li></ul>' +
+                '<h5>3. Phân cụm</h5><ul>' +
+                '<li>Kết quả: <strong>' + esc(cr) + '</strong> — <strong>' + esc(ctitle) + '</strong>, độ phù hợp ' + fmtProb(cl.probability) + '.</li>' +
+                '<li>Ý nghĩa: bạn gần với phân khúc «<strong>' + esc(ctitle) + '</strong>» trong dữ liệu khảo sát; đây không phải nhãn High/Medium/Low.</li>' +
+                '<li>Bảng mã ↔ tên đầy đủ: <a href="#clusterLegend" style="color:var(--primary);">Chú giải phân cụm (Cluster)</a> — nhóm có thể chỉnh tên trong code cho khớp SSAS.</li></ul>' +
+                '<h5>Đối chiếu nhanh</h5><p>' + agreeNote + '</p>' +
+                '<h5>Gợi ý đọc kết quả</h5><ul>' +
+                '<li>Nếu <strong>High</strong> chiếm tỷ trọng lớn: cân nhắc kỹ năng bổ sung, an toàn thông tin và kịch bản chuyển đổi nghề.</li>' +
+                '<li>Nếu <strong>Medium</strong> chiếm ưu thế: trạng thái trung gian — theo dõi theo ngữ cảnh công việc cụ thể.</li>' +
+                '<li>Nếu <strong>Low</strong> cao: mức lo thấp trong khung dữ liệu, vẫn nên xem lại các chiều lo âu chi tiết (mất việc, riêng tư…).</li></ul>' +
+                '<p style="margin-top:14px; font-size:12px; opacity:0.85;">Hồ sơ đã phân tích: tuổi đại diện <strong>' + esc(payload.age) + '</strong>, nghề <strong>' + esc(payload.occupation) + '</strong>, tổng chỉ số lo âu <strong>' + esc(payload.overallFearScore) + '</strong>/10 (trung bình bốn thang).</p>';
+            $('resultExplain').innerHTML = html;
+        }
+
+        function fillInputRecap(payload) {
+            const labels = {
+                age: 'Tuổi đại diện', gender: 'Giới tính', education: 'Học vấn', occupation: 'Nghề',
+                aiFamiliarity: 'Quen AI', aiUsageFrequency: 'Tần suất AI', country: 'Quốc gia', incomeLevel: 'Thu nhập',
+                jobLossFear: 'Lo mất việc', privacyFear: 'Lo riêng tư', safetyFear: 'Lo an toàn', socialImpactFear: 'Lo xã hội', overallFearScore: 'Tổng chỉ số'
+            };
+            const order = ['gender','age','education','occupation','aiFamiliarity','aiUsageFrequency','country','incomeLevel','jobLossFear','privacyFear','safetyFear','socialImpactFear','overallFearScore'];
+            const cells = order.map((k) => '<div><strong>' + labels[k] + '</strong>' + (payload[k] ?? '—') + '</div>').join('');
+            $('inputRecap').innerHTML = '<details class="recap-details" style="margin-top:20px;"><summary>Đầu vào đã gửi (đối chiếu báo cáo)</summary><div class="inner details-grid">' + cells + '</div></details>';
+            $('inputRecap').style.display = 'block';
+        }
+
+        function updateWorkflowProgress(sessionComplete) {
+            const fill = $('workflowFill');
+            const lab = $('workflowStepLabel');
+            if (!fill || !lab) return;
+            if (sessionComplete) {
+                fill.style.width = '100%';
+                lab.textContent = 'Bước 3 — Đã có kết quả (khối «Bảng kết quả phân tích» bên dưới)';
+                return;
+            }
+            if (!$('occupation').value) {
+                fill.style.width = '33%';
+                lab.textContent = 'Bước 1 — Chọn nghề nghiệp và hoàn tất biểu mẫu';
+            } else {
+                fill.style.width = '66%';
+                lab.textContent = 'Bước 2 — Bấm «Chạy phân tích dự báo»';
+            }
+        }
+
+        async function runPredict() {
+            const btn = $('btnPredict');
+            const err = $('errBox');
+            const result = $('result');
+            err.style.display = 'none';
+            err.textContent = '';
+
+            const payload = {
+                age: +$('age').value,
+                gender: $('gender').value,
+                education: $('education').value,
+                occupation: $('occupation').value,
+                aiFamiliarity: $('aiFam').value,
+                aiUsageFrequency: $('aiUsage').value,
+                country: $('country').value,
+                incomeLevel: $('income').value,
+                jobLossFear: +$('fJob').value,
+                privacyFear: +$('fPriv').value,
+                safetyFear: +$('fSafe').value,
+                socialImpactFear: +$('fSoc').value,
+                overallFearScore: +$('overall').value
+            };
+
+            if (!payload.occupation) {
+                err.textContent = 'Vui lòng chọn lĩnh vực nghề nghiệp.';
+                err.style.display = 'block';
+                return;
+            }
+
+            btn.textContent = 'Đang phân tích…';
+            btn.style.opacity = '0.6';
+            btn.disabled = true;
+            log('Đang gửi yêu cầu tới máy chủ phân tích…');
+
+            try {
+                const res = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const body = await res.json();
+                if (!res.ok) {
+                    throw new Error(body.error || body.title || JSON.stringify(body));
+                }
+
+                fillTreeCard('dtMain', 'dtProbs', body.decisionTree);
+                fillTreeCard('lrMain', 'lrProbs', body.logisticRegression);
+                fillClusterCard('clMain', 'clProbs', body.clustering);
+                buildSummary(body.decisionTree, body.logisticRegression, body.clustering);
+                fillDetailedExplain(body.decisionTree, body.logisticRegression, body.clustering, payload);
+                fillInputRecap(payload);
+                result.style.display = 'block';
+                updateWorkflowProgress(true);
+                result.scrollIntoView({ behavior: 'smooth' });
+                log('Hoàn tất: cây quyết định, hồi quy logistic, phân cụm.');
+            } catch (e) {
+                updateWorkflowProgress(false);
+                err.textContent = 'Không thực hiện được phân tích: ' + e.message;
+                err.style.display = 'block';
+                log('Lỗi: ' + (e.message || String(e)));
+            } finally {
+                btn.textContent = 'Chạy phân tích dự báo';
+                btn.style.opacity = '1';
+                btn.disabled = false;
+            }
+        }
+
+        bindRange('fJob', 'fJobV');
+        bindRange('fPriv', 'fPrivV');
+        bindRange('fSafe', 'fSafeV');
+        bindRange('fSoc', 'fSocV');
+        refreshOverall();
+        $('btnPredict').addEventListener('click', runPredict);
+        $('predictionForm').addEventListener('change', () => updateWorkflowProgress(false));
+        $('occupation').addEventListener('change', () => updateWorkflowProgress(false));
+        updateWorkflowProgress(false);
+    </script>
+</body>
+</html>

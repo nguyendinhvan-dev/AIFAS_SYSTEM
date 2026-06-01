@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIFAS | CONTACT INTERFACE</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ff66; 
+            --bg: #050505;
+            --border: rgba(0, 255, 102, 0.12);
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --font-accent: 'Syne', sans-serif;
+            --font-main: 'Be Vietnam Pro', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: var(--font-accent); font-size: 26px; font-weight: 800;
+            letter-spacing: -1.5px; display: flex; align-items: center; gap: 10px;
+        }
+        .logo span { color: var(--primary); text-shadow: 0 0 15px rgba(0, 255, 102, 0.5); }
+
+        .nav-links { display: flex; list-style: none; height: 100%; }
+        .nav-links li { height: 100%; border-left: 1px solid var(--border); }
+        .nav-links a {
+            text-decoration: none; color: #fff; font-size: 12px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding: 0 30px; height: 100%; display: flex; align-items: center;
+            transition: 0.4s; opacity: 0.5;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            opacity: 1; background: rgba(0, 255, 102, 0.08); color: var(--primary);
+        }
+        /* --- CONTACT LAYOUT --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+
+        .tag { font-family: monospace; color: var(--primary); font-size: 11px; letter-spacing: 3px; display: block; margin-bottom: 20px; }
+        h1 { font-family: var(--font-accent); font-size: 45px; text-transform: uppercase; margin-bottom: 40px; line-height: 1.1; }
+
+        /* --- FORM STYLES --- */
+        .contact-form { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 50px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .input-field { margin-bottom: 25px; }
+        
+        label { display: block; font-size: 11px; text-transform: uppercase; color: var(--primary); letter-spacing: 2px; margin-bottom: 10px; }
+        input, textarea {
+            width: 100%; background: #0a0a0a; border: 1px solid var(--border);
+            padding: 18px; color: #fff; font-family: var(--font-main);
+            font-size: 14px; transition: 0.3s;
+        }
+        input:focus, textarea:focus { border-color: var(--primary); outline: none; }
+
+        .btn-submit {
+            background: var(--primary); color: #000; border: none;
+            padding: 20px 40px; font-family: var(--font-accent);
+            font-weight: 800; font-size: 14px; text-transform: uppercase;
+            cursor: pointer; transition: 0.4s; width: 100%;
+        }
+        .btn-submit:hover { filter: brightness(1.1); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,255,102,0.2); }
+
+        /* --- INFO SIDEBAR --- */
+        .contact-info { display: flex; flex-direction: column; gap: 40px; }
+        
+        .info-item { display: flex; gap: 25px; align-items: flex-start; }
+        .info-icon { 
+            width: 50px; height: 50px; border: 1px solid var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: var(--primary); flex-shrink: 0;
+        }
+        .info-content h4 { font-family: var(--font-accent); font-size: 16px; margin-bottom: 5px; text-transform: uppercase; }
+        .info-content p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+        /* Map Placeholder */
+        .map-box {
+            width: 100%; height: 250px; background: #0a0a0a;
+            border: 1px solid var(--border); margin-top: 20px;
+            position: relative; display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .map-overlay {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, #0a0a0a 150%);
+        }
+
+        footer { padding: 60px 8%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 11px; letter-spacing: 2px; }
+
+        @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; }
+            nav { flex-wrap: wrap; height: auto; min-height: 72px; padding: 10px 4% 14px; gap: 8px; }
+            .nav-links { flex-wrap: wrap; width: 100%; justify-content: flex-start; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; height: auto; }
+            .nav-links li { height: auto; border-left: none; border-right: 1px solid var(--border); }
+            .nav-links li:first-child { border-left: 1px solid var(--border); }
+            .nav-links a { height: auto; padding: 10px 14px; font-size: 10px; letter-spacing: 1px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="trangchu.html" class="logo" style="text-decoration:none; color:inherit;">AIFAS<span>_SYSTEM</span></a>
+        <ul class="nav-links">
+            <li><a href="trangchu.html">01. Trang Chủ</a></li>
+            <li><a href="phantich.html">02. Phân Tích</a></li>
+            <li><a href="ungdung.html">03. Ứng Dụng</a></li>
+            <li><a href="baiviet.html">04. Bài Viết</a></li>
+            <li><a href="lienhe.html" class="active">05. Liên Hệ</a></li>
+        </ul>
+        <div style="font-family: monospace; font-size: 11px; color: var(--primary);">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--primary); border-radius:50%; margin-right:8px; box-shadow: 0 0 10px var(--primary);"></span>
+            SYSTEM_ACTIVE: v4.2.0
+        </div>
+    </nav>
+    <div class="container">
+        <header style="margin-bottom: 80px;">
+            <span class="tag">[ CONNECTION_ESTABLISHED ]</span>
+            <h1>LIÊN HỆ VỚI <span style="color: var(--primary)">CHÚNG TÔI</span></h1>
+            <p style="color: var(--text-dim); max-width: 600px; border-left: 2px solid var(--primary); padding-left: 20px;">
+                Mọi thắc mắc về dữ liệu nghiên cứu hoặc hợp tác phát triển thuật toán, vui lòng gửi tín hiệu thông qua cổng giao tiếp bên dưới.
+            </p>
+        </header>
+
+        <div class="contact-grid">
+            <div class="contact-form">
+                <span class="tag">LIÊN HỆ NHÓM AIFAS</span>
+                <p style="font-size:13px;color:var(--text-dim);line-height:1.7;margin-bottom:24px;max-width:520px;">
+                    Nội dung sẽ mở ứng dụng thư trên máy bạn (Outlook, Mail, Gmail app…) với thư gửi tới <strong style="color:var(--primary);">dinhvanparkour@gmail.com</strong>. Bạn kiểm tra lại và nhấn <em>Gửi</em> trong hộp thư.
+                </p>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="input-field">
+                            <label for="cName">Họ và tên</label>
+                            <input id="cName" type="text" required placeholder="Họ tên của bạn">
+                        </div>
+                        <div class="input-field">
+                            <label for="cEmail">Email của bạn</label>
+                            <input id="cEmail" type="email" required placeholder="email@example.com">
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label for="cSubject">Chủ đề</label>
+                        <input id="cSubject" type="text" required placeholder="Ví dụ: Hỏi về đồ án AIFAS">
+                    </div>
+                    <div class="input-field">
+                        <label for="cBody">Nội dung</label>
+                        <textarea id="cBody" rows="6" required placeholder="Nhập nội dung tin nhắn..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Soạn thư gửi Gmail</button>
+                </form>
+                <p id="contactHint" style="display:none;margin-top:16px;font-size:12px;color:var(--primary);"></p>
+            </div>
+
+            <div class="contact-info">
+                <div class="info-item">
+                    <div class="info-icon"><i class="ti ti-map-pin"></i></div>
+                    <div class="info-content">
+                        <h4>Địa chỉ Lab</h4>
+                        <p>Khu Công Nghệ Cao, Quận 9, TP. Hồ Chí Minh<br>Phòng Lab Dữ Liệu Tầng 12, Tòa nhà A1.</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="ti ti-mail"></i></div>
+                    <div class="info-content">
+                        <h4>Email nhóm</h4>
+                        <p><a href="mailto:dinhvanparkour@gmail.com" style="color:var(--primary);text-decoration:none;">dinhvanparkour@gmail.com</a><br><span style="font-size:12px;color:var(--text-dim);">Dùng form bên trái để soạn thư nhanh.</span></p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="ti ti-phone-call"></i></div>
+                    <div class="info-content">
+                        <h4>Hotline vận hành</h4>
+                        <p>+84 28 3344 5566<br>(08:00 - 17:00, Mon-Fri)</p>
+                    </div>
+                </div>
+
+                <div class="map-box">
+                    <div class="map-overlay"></div>
+                    <div style="z-index: 1; text-align: center;">
+                        <i class="ti ti-access-point" style="font-size: 40px; color: var(--primary); margin-bottom: 10px; display: block;"></i>
+                        <span style="font-family: monospace; font-size: 10px; letter-spacing: 2px;">LOCALIZING_SERVER_LOCATION...</span>
+                    </div>
+                    <div style="position: absolute; width: 100%; height: 100%; opacity: 0.1; background-image: radial-gradient(var(--primary) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div>AIFAS — Liên hệ đồ án</div>
+        <div style="font-family: monospace; color: var(--primary);">dinhvanparkour@gmail.com</div>
+        <div>CHUYÊN ĐỀ CSDL</div>
+    </footer>
+
+    <script>
+    (function () {
+        var to = 'dinhvanparkour@gmail.com';
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var name = document.getElementById('cName').value.trim();
+            var from = document.getElementById('cEmail').value.trim();
+            var sub = document.getElementById('cSubject').value.trim();
+            var body = document.getElementById('cBody').value.trim();
+            var mailBody = 'Từ: ' + name + ' <' + from + '>\r\n\r\n' + body;
+            var url = 'mailto:' + to +
+                '?subject=' + encodeURIComponent('[AIFAS] ' + sub) +
+                '&body=' + encodeURIComponent(mailBody);
+            window.location.href = url;
+            var h = document.getElementById('contactHint');
+            h.style.display = 'block';
+            h.textContent = 'Đã mở ứng dụng thư. Nếu không thấy cửa sổ, kiểm tra trình duyệt có chặn pop-up không.';
+        });
+    })();
+    </script>
+
+</body>
+</html>

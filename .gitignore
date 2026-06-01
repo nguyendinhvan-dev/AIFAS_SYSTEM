@@ -1,0 +1,34 @@
+# Build / IDE
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+*.dll
+*.pdb
+*.exe
+
+# NuGet (restore on clone)
+packages/
+**/packages/
+
+# OS / editor
+Thumbs.db
+.DS_Store
+*.swp
+.idea/
+
+# Logs / temp
+*.log
+*.tmp
+
+# Sensitive (do not commit credentials)
+appsettings.Development.json
+**/appsettings.*.local.json
+.env
+.env.*
+
+# Additional ignore patterns
+*.bak
+*.backup

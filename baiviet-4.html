@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIFAS | Tâm lý và tự động hóa</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#00ff66;--bg:#050505;--border:rgba(0,255,102,0.12);--text-main:#e2e8f0;--text-dim:#94a3b8;--font-accent:'Syne',sans-serif;--font-main:'Be Vietnam Pro',sans-serif;}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:var(--bg);color:var(--text-main);font-family:var(--font-main);
+            background-image:linear-gradient(var(--border)1px,transparent 1px),linear-gradient(90deg,var(--border)1px,transparent 1px);background-size:40px 40px;}
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: var(--font-accent); font-size: 26px; font-weight: 800; letter-spacing: -1.5px; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; height: 100%; }
+        .nav-links li { height: 100%; border-left: 1px solid var(--border); }
+        .nav-links a {
+            text-decoration: none; color: #fff; font-size: 12px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding: 0 30px; height: 100%; display: flex; align-items: center;
+            transition: 0.4s; opacity: 0.5;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            opacity: 1; background: rgba(0, 255, 102, 0.08); color: var(--primary);
+        }
+        @media (max-width: 1024px) {
+            nav { flex-wrap: wrap; height: auto; min-height: 72px; padding: 10px 4% 14px; gap: 8px; }
+            .nav-links { flex-wrap: wrap; width: 100%; justify-content: flex-start; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; height: auto; }
+            .nav-links li { height: auto; border-left: none; border-right: 1px solid var(--border); }
+            .nav-links li:first-child { border-left: 1px solid var(--border); }
+            .nav-links a { height: auto; padding: 10px 14px; font-size: 10px; letter-spacing: 1px; }
+        }
+        .wrap{max-width:760px;margin:0 auto;padding:120px 6% 100px;}
+        .back{display:inline-flex;gap:8px;color:var(--primary);text-decoration:none;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin-bottom:32px;}
+        .tag{font-family:monospace;color:var(--primary);font-size:11px;letter-spacing:3px;margin-bottom:14px;display:block;}
+        h1{font-family:var(--font-accent);font-size:clamp(1.45rem,4vw,2.1rem);text-transform:uppercase;line-height:1.15;margin-bottom:14px;}
+        .meta{font-size:13px;color:var(--text-dim);margin-bottom:28px;}
+        .prose h2{font-family:var(--font-accent);font-size:1rem;margin:28px 0 10px;color:var(--primary);text-transform:uppercase;}
+        .prose p{font-size:15px;line-height:1.85;color:var(--text-dim);margin-bottom:14px;}
+        footer{padding:48px 6%;border-top:1px solid var(--border);font-size:11px;color:#666;text-align:center;}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="trangchu.html" class="logo" style="text-decoration:none; color:inherit;">AIFAS<span>_SYSTEM</span></a>
+        <ul class="nav-links">
+            <li><a href="trangchu.html">01. Trang Chủ</a></li>
+            <li><a href="phantich.html">02. Phân Tích</a></li>
+            <li><a href="ungdung.html">03. Ứng Dụng</a></li>
+            <li><a href="baiviet.html" class="active">04. Bài Viết</a></li>
+            <li><a href="lienhe.html">05. Liên Hệ</a></li>
+        </ul>
+        <div style="font-family: monospace; font-size: 11px; color: var(--primary);">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--primary); border-radius:50%; margin-right:8px; box-shadow: 0 0 10px var(--primary);"></span>
+            SYSTEM_ACTIVE: v4.2.0
+        </div>
+    </nav>
+    <article class="wrap">
+        <a class="back" href="baiviet.html"><i class="ti ti-arrow-left"></i> Quay lại</a>
+        <span class="tag">[ XÃ HỘI HỌC · DỮ LIỆU ]</span>
+        <h1>Tâm lý học về tự động hóa: thế hệ và niềm tin công nghệ</h1>
+        <p class="meta">MAY 08, 2024</p>
+        <div class="prose">
+            <p>Dữ liệu AIFAS cho thấy Gen Z thường báo cáo <strong>AI Familiarity</strong> cao nhưng <strong>Privacy Fear</strong> cũng cao — họ quen công cụ nhưng nhạy với rủi ro dữ liệu. Ngược lại, một bộ phận người trung niên có điểm quen AI thấp nhưng lo mất việc rất cao. Hiệu ứng thế hệ này có thể được kiểm chứng bằng <strong>phân tầng theo cụm</strong>: thuật toán clustering trên không gian đặc trưng (tuổi, quen AI, các thang lo âu) thường tách được nhóm «công nghệ quen — quyền riêng tư căng» khỏi nhóm «công nghệ lạ — lo mất việc nặng», dù cả hai vẫn có thể chia sẻ cùng một nhãn <code>Fear Level</code> ở lớp phân loại.</p>
+            <h2>Cách đọc cùng mô hình clustering và xác suất phân lớp</h2>
+            <p>Phân cụm không «đúng sai» theo nghĩa phân lớp; nó mô tả <em>cấu trúc nhóm</em> và độ phù hợp được đọc qua <code>ClusterProbability()</code>. Khi trình bày học thuật, nên ghép cụm với biến nhân khẩu để tránh suy diễn đạo đức từ thuật toán. Đồng thời, khi trình bày logistic regression, cần nêu rõ ta đang ước lượng <strong>P(Fear Level | X)</strong> chứ không phải xác suất thuộc cụm — hai đại lượng có thang diễn giải khác nhau.</p>
+            <h2>Phân nhóm lao động và ý nghĩa chính sách</h2>
+            <p>Trong báo cáo định lượng minh họa, ba cụm Adaptive / Observant / Resistant mô tả các kiểu phản ứng với tự động hóa. Nhóm Resistant tập trung ở ngành sản xuất truyền thống gợi ý can thiệp đào tạo kèm quy trình chuyển giao quyền kiểm soát người–máy, thay vì chỉ truyền thông chung chung về «AI thay thế».</p>
+            <h2>Gợi ý khảo sát tiếp theo</h2>
+            <p>Bổ sung câu hỏi về quyền được giải thích (explainability) và mức tin tưởng vào công ty — hai trục dự kiến tách biệt rõ hơn giữa các cụm và giúp hiệu chuẩn mô hình xác suất trên tập mới.</p>
+        </div>
+    </article>
+    <footer>© AIFAS</footer>
+</body>
+</html>
